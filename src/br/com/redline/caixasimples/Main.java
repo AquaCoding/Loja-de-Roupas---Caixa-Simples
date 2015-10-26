@@ -20,9 +20,15 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+		//String  originalPassword = "password";
+        //String generatedSecuredPasswordHash = BCrypt.hashpw(originalPassword, BCrypt.gensalt(12));
+        //System.out.println(generatedSecuredPasswordHash);
+         
+        //boolean matched = BCrypt.checkpw(originalPassword, generatedSecuredPasswordHash);
+        
 		// Inicia a janela principal
 		this.primaryStage = primaryStage;
-		this.primaryStage.setFullScreen(true);
+		this.primaryStage.setFullScreen(false);
 		this.primaryStage.setFullScreenExitHint("");
 		this.primaryStage.setFullScreenExitKeyCombination(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
 		
