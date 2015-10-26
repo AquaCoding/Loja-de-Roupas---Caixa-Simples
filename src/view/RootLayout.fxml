@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane prefHeight="700.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+            <Menu fx:id="mCaixa" mnemonicParsing="false" text="Caixa" />
+          <Menu fx:id="mUsuarios" mnemonicParsing="false" text="Usuários" />
+          <Menu fx:id="mClientes" mnemonicParsing="false" text="Clientes" />
+          <Menu fx:id="mProdutos" mnemonicParsing="false" text="Produtos" />
+            <Menu fx:id="mSobre" mnemonicParsing="false" text="Sobre" />
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
