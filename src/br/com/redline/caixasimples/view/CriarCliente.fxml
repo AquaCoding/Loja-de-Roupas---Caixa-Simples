@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="348.0" prefWidth="399.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <Button fx:id="bFinalizar" layoutX="403.0" layoutY="364.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" text="Finalizar" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="5.0" />
+      <Button fx:id="bCancelar" layoutX="5.0" layoutY="392.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" text="Cancelar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="5.0" />
+      <GridPane layoutX="114.0" layoutY="53.0" prefHeight="224.0" prefWidth="172.0" AnchorPane.bottomAnchor="71.0" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="113.0" AnchorPane.topAnchor="53.0">
+        <columnConstraints>
+          <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="tfNome" prefHeight="25.0" prefWidth="169.0" promptText="Nome" />
+            <TextField fx:id="tfSobrenome" prefHeight="25.0" prefWidth="169.0" promptText="Sobrenome" GridPane.rowIndex="1" />
+            <TextField fx:id="tfRua" prefHeight="25.0" prefWidth="169.0" promptText="Rua" GridPane.rowIndex="2" />
+            <TextField fx:id="tfNumero" prefHeight="25.0" prefWidth="169.0" promptText="Número" GridPane.rowIndex="3" />
+            <TextField fx:id="tfBairro" prefHeight="25.0" prefWidth="169.0" promptText="Bairro" GridPane.rowIndex="4" />
+            <TextField fx:id="tfTelefone" prefHeight="25.0" prefWidth="169.0" promptText="Telefone" GridPane.rowIndex="5" />
+            <TextField fx:id="ftEmail" prefHeight="25.0" prefWidth="169.0" promptText="Email" GridPane.rowIndex="6" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
