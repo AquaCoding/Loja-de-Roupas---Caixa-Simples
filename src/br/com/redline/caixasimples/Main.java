@@ -4,7 +4,9 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -14,36 +16,51 @@ import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
 
-	private Stage primaryStage;
-	private BorderPane rootLayout;
+	private static Stage primaryStage;
+	private static Stage loginStage = new Stage();
+	private static BorderPane rootLayout;
 	private String pageTitle = "Caixa";
 
 	@Override
-	public void start(Stage primaryStage) {
-		//String  originalPassword = "password";
-        //String generatedSecuredPasswordHash = BCrypt.hashpw(originalPassword, BCrypt.gensalt(12));
-        //System.out.println(generatedSecuredPasswordHash);
-         
-        //boolean matched = BCrypt.checkpw(originalPassword, generatedSecuredPasswordHash);
-        
+	public void start(Stage stage) {
 		// Inicia a janela principal
-		this.primaryStage = primaryStage;
-		this.primaryStage.setFullScreen(false);
-		this.primaryStage.setFullScreenExitHint("");
-		this.primaryStage.setFullScreenExitKeyCombination(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
-		
+		primaryStage = stage;
+		primaryStage.setFullScreen(false);
+		primaryStage.setFullScreenExitHint("");
+		primaryStage.setFullScreenExitKeyCombination(new KeyCodeCombination(
+				KeyCode.E, KeyCombination.CONTROL_DOWN));
+
 		// Defini titulo
-		this.primaryStage.setTitle(pageTitle);
-		
-		// Inicia o RootLayout
-		initRootLayout();
-		
-		// Exibe a view do caixa
-		showViewCaixa();
+		primaryStage.setTitle(pageTitle);
+
+		initLoginLayout();
+	}
+
+	// Realiza a inicialização da janela de login
+	public void initLoginLayout() {
+		try {
+			// Carrega o root layout do arquivo fxml.
+			Parent root = FXMLLoader.load(Main.class
+					.getResource("view/Login.fxml"));
+			Scene scene = new Scene(root, 300, 150);
+			loginStage.setTitle(pageTitle + " - Entrar");
+			loginStage.setScene(scene);
+			loginStage.setResizable(false);
+			loginStage.initModality(Modality.APPLICATION_MODAL);
+			loginStage.setAlwaysOnTop(true);
+			loginStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// Fecha a janela de login
+	public static void endLoginLayout() {
+		loginStage.hide();
 	}
 
 	// Realiza a inicialização da janela princpal
-	public void initRootLayout() {
+	public static void initRootLayout() {
 		try {
 			// Carrega o root layout do arquivo fxml.
 			FXMLLoader loader = new FXMLLoader();
@@ -60,7 +77,7 @@ public class Main extends Application {
 	}
 
 	// Carrega a view 'Caixa' dentro do RootLayout
-	public void showViewCaixa() {
+	public static void showViewCaixa() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/Caixa.fxml"));

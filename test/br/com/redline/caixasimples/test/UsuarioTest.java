@@ -1,20 +1,36 @@
 package br.com.redline.caixasimples.test;
 
 import static org.junit.Assert.*;
-import org.junit.Test;
 
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import org.junit.Before;
+import org.junit.Test;
 import br.com.redline.caixasimples.model.Usuario;
+import br.com.redline.caixasimples.util.DatabaseConnect;
 
 public class UsuarioTest {
 
 	private Usuario u;
-	
-	@Test
+
+	// Recria a tabela usuario e inseri um valor valido antes de todos os testes
+	@Before
 	public void criaUsuario() {
+		try {
+			Connection connect = DatabaseConnect.getInstance();
+			InputStream in = UsuarioTest.class.getResourceAsStream("sqls/usuario.sql");
+			DatabaseConnect.importSQL(connect, in);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		u = new Usuario("Rodrigo", "123456789");
 		assertEquals(true, u.create());
 	}
-	
+
 	@Test
 	public void criaUsuarioNomeInvalido() {
 		try {
@@ -24,7 +40,7 @@ public class UsuarioTest {
 			assertEquals("O valor de nome é inválido", e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void criaUsuarioSenhaInvalido() {
 		try {
@@ -34,19 +50,26 @@ public class UsuarioTest {
 			assertEquals("O valor de senha é inválido", e.getMessage());
 		}
 	}
-	
-	@Test(expected=RuntimeException.class)
+
+	@Test(expected = RuntimeException.class)
 	public void criaUsuarioComErro() {
 		u.create();
 	}
-	
+
 	@Test
-	public void obtemUsuario() {
+	public void obtemUsuarioPorId() {
 		u = Usuario.getById(1);
 		assertEquals(1, u.getIdUsuario());
 		assertEquals("Rodrigo", u.getNome());
 	}
-	
+
+	@Test
+	public void obtemUsuarioPorNome() {
+		u = Usuario.getByNome("Rodrigo");
+		assertEquals(1, u.getIdUsuario());
+		assertEquals("Rodrigo", u.getNome());
+	}
+
 	@Test
 	public void obtemUsuarioInvalido() {
 		try {
@@ -55,5 +78,15 @@ public class UsuarioTest {
 		} catch (RuntimeException e) {
 			assertEquals("O usuário não existe", e.getMessage());
 		}
+	}
+	
+	@Test
+	public void verificaSenhaCorreta() {
+		assertEquals(true, Usuario.isValidSenha("Rodrigo", "123456789"));
+	}
+	
+	@Test
+	public void verificaSenhaErrada() {
+		assertEquals(false, Usuario.isValidSenha("Rodrigo", "12345678"));
 	}
 }

@@ -3,7 +3,9 @@ package br.com.redline.caixasimples.model;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import com.mysql.jdbc.PreparedStatement;
+
 import br.com.redline.caixasimples.util.BCrypt;
 import br.com.redline.caixasimples.util.DatabaseConnect;
 
@@ -91,7 +93,7 @@ public class Usuario {
 		}
 	}
 
-	// Obtem um usuario
+	// Obtem um usuario pelo ID
 	public static Usuario getById(int id) {
 		// Result set get the result of the SQL query
 		try {
@@ -101,7 +103,7 @@ public class Usuario {
 			// Cria um prepared statement
 			PreparedStatement statement = (PreparedStatement) connect
 					.prepareStatement("SELECT idUsuario, nome, senha FROM Usuario WHERE idUsuario = ?");
-			
+
 			// Realiza o bind dos valores
 			statement.setInt(1, id);
 
@@ -120,6 +122,47 @@ public class Usuario {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			throw new RuntimeException("Um erro ocorreu ao buscar o usuário");
+		}
+	}
+
+	// Obtem um usuario pelo nome
+	public static Usuario getByNome(String nome) {
+		// Result set get the result of the SQL query
+		try {
+			// Obtem uma conexão com o banco de dados
+			Connection connect = DatabaseConnect.getInstance();
+
+			// Cria um prepared statement
+			PreparedStatement statement = (PreparedStatement) connect
+					.prepareStatement("SELECT idUsuario, nome, senha FROM Usuario WHERE nome = ?");
+
+			// Realiza o bind dos valores
+			statement.setString(1, nome);
+
+			// Executa o SQL
+			ResultSet resultSet = statement.executeQuery();
+
+			// Percorre pelo resultado
+			if (resultSet.next()) {
+				Usuario u = new Usuario(resultSet.getInt("idUsuario"),
+						resultSet.getString("nome"),
+						resultSet.getString("senha"));
+				return u;
+			} else {
+				throw new RuntimeException("O usuário não existe");
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new RuntimeException("Um erro ocorreu ao buscar o usuário");
+		}
+	}
+
+	public static boolean isValidSenha(String nome, String senha) {
+		try {
+			Usuario u = Usuario.getByNome(nome);
+			return BCrypt.checkpw(senha, u.getSenha());
+		} catch (RuntimeException e) {
+			return false;
 		}
 	}
 }

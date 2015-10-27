@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="198.0" prefWidth="280.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane maxHeight="150.0" maxWidth="300.0" minHeight="150.0" minWidth="300.0" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.redline.caixasimples.controller.LoginController">
    <children>
-      <Button fx:id="bEntrar" layoutX="186.0" layoutY="159.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="81.0" text="Entrar" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="13.0" />
-      <TextField fx:id="tfUsuario" layoutX="66.0" layoutY="49.0" prefHeight="33.0" prefWidth="156.0" promptText="Usuário" AnchorPane.bottomAnchor="124.0" AnchorPane.rightAnchor="58.0" />
-      <PasswordField fx:id="pfSenha" layoutX="66.0" layoutY="99.0" prefHeight="33.0" prefWidth="156.0" promptText="Senha" AnchorPane.bottomAnchor="74.0" AnchorPane.rightAnchor="58.0" />
+      <Button fx:id="bEntrar" layoutX="185.0" layoutY="105.0" mnemonicParsing="false" onMouseClicked="#bEntrarClick" prefHeight="33.0" prefWidth="81.0" text="Entrar" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="105.0" />
+      <TextField fx:id="tfUsuario" layoutX="14.0" layoutY="28.0" prefHeight="33.0" prefWidth="156.0" promptText="Usuário" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="28.0" />
+      <PasswordField fx:id="pfSenha" layoutX="14.0" layoutY="68.0" prefHeight="33.0" prefWidth="156.0" promptText="Senha" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="68.0" />
+      <Label fx:id="lEntrar" layoutX="14.0" layoutY="7.0" text="É preciso entrar" />
    </children>
 </AnchorPane>
