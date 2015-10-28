@@ -5,14 +5,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane prefHeight="700.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<BorderPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.redline.caixasimples.controller.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
             <Menu fx:id="mCaixa" mnemonicParsing="false" text="Caixa" />
           <Menu fx:id="mUsuarios" mnemonicParsing="false" text="Usuários" />
-          <Menu fx:id="mClientes" mnemonicParsing="false" text="Clientes" />
+          <Menu fx:id="mClientes" mnemonicParsing="false" text="Clientes">
+               <items>
+                  <MenuItem fx:id="mCadastroCliente" mnemonicParsing="false" onAction="#cadastrarClienteClick" text="Cadastrar" />
+               </items></Menu>
           <Menu fx:id="mProdutos" mnemonicParsing="false" text="Produtos" />
             <Menu fx:id="mSobre" mnemonicParsing="false" text="Sobre" />
         </menus>

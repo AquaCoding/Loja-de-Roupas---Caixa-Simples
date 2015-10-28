@@ -19,7 +19,7 @@ public class Main extends Application {
 	private static Stage primaryStage;
 	private static Stage loginStage = new Stage();
 	private static BorderPane rootLayout;
-	private String pageTitle = "Caixa";
+	private static String pageTitle = "Caixa";
 
 	@Override
 	public void start(Stage stage) {
@@ -53,7 +53,7 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// Fecha a janela de login
 	public static void endLoginLayout() {
 		loginStage.hide();
@@ -81,6 +81,19 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/Caixa.fxml"));
+			AnchorPane personOverview = (AnchorPane) loader.load();
+			rootLayout.setCenter(personOverview);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// Carrega a view 'CriarCliente' dentro do RootLayout
+	public static void showViewCriarCliente() {
+		try {
+			primaryStage.setTitle(pageTitle + " - Cadastro de Cliente");
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/CriarCliente.fxml"));
 			AnchorPane personOverview = (AnchorPane) loader.load();
 			rootLayout.setCenter(personOverview);
 		} catch (IOException e) {
