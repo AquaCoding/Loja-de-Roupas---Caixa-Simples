@@ -75,14 +75,14 @@
                   <Insets left="14.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="ftEmail" prefHeight="25.0" prefWidth="169.0" promptText="Email">
+            <TextField fx:id="tfEmail" prefHeight="25.0" prefWidth="169.0" promptText="Email">
                <VBox.margin>
                   <Insets bottom="14.0" left="14.0" right="14.0" />
                </VBox.margin>
             </TextField>
             <AnchorPane layoutX="10.0" layoutY="304.0">
                <children>
-                  <Button fx:id="bCadastrar1" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" text="Cadastrar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                  <Button fx:id="bCadastrar1" mnemonicParsing="false" onMouseClicked="#cadastrarClick" prefHeight="33.0" prefWidth="90.0" text="Cadastrar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
                   <Button fx:id="bCancelar1" mnemonicParsing="false" onMouseClicked="#cancelar" prefHeight="33.0" prefWidth="90.0" text="Cancelar" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
                </children>
             </AnchorPane>
