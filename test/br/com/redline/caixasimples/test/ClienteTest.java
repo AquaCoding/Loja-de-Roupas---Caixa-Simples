@@ -85,4 +85,20 @@ public class ClienteTest {
 		assertEquals(2, clientes.get(1).getIdCliente());
 		assertEquals("Cliente B", clientes.get(1).getNome());
 	}
+	
+	@Test
+	public void atualizaCliente() {
+		c.setEmail("clienteA@example.com");
+		assertEquals(true, c.update());
+		ArrayList<Cliente> clientes = Cliente.getAll();
+		assertEquals("clienteA@example.com", clientes.get(0).getEmail());
+		
+	}
+	
+	@Test
+	public void deletaCliente() {
+		assertEquals(true, c.delete());
+		ArrayList<Cliente> clientes = Cliente.getAll();
+		assertEquals(0, clientes.size());
+	}
 }

@@ -132,7 +132,7 @@ public class Cliente {
 
 			// Cria um prepared statement
 			PreparedStatement statement = (PreparedStatement) connect
-					.prepareStatement("INSERT INTO Cliente (nome, sobrenome, rua, numero, bairro, telefone, email) VALUES (?, ?, ?, ?, ?, ?, ?)");
+					.prepareStatement("INSERT INTO Cliente (nome, sobrenome, rua, numero, bairro, telefone, email) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 			// Realiza o bind dos valores
 			statement.setString(1, this.nome);
@@ -146,17 +146,23 @@ public class Cliente {
 			// Executa o SQL
 			int ret = statement.executeUpdate();
 
-			// Encerra conexao
-			connect.close();
-
 			// Retorna resultado
 			if (ret == 1) {
+				//Define o id a classe
+				ResultSet id = statement.getGeneratedKeys();
+				while(id.next())
+					setIdCliente(id.getInt(1));
+				
+				// Encerra conexao
+				connect.close();
 				return true;
 			} else {
+				// Encerra conexao
+				connect.close();
 				return false;
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("Um erro ocorreu ao criar o usuário");
+			throw new RuntimeException("Um erro ocorreu ao criar o cliente");
 		}
 	}
 
@@ -191,6 +197,73 @@ public class Cliente {
 			return clienteReturn;
 		} catch (SQLException e) {
 			throw new RuntimeException("Um erro ocorreu");
+		}
+	}
+	
+	public boolean update() {
+		try {
+			// Obtem uma conexão com o banco de dados
+			Connection connect = DatabaseConnect.getInstance();
+
+			// Cria um prepared statement
+			PreparedStatement statement = (PreparedStatement) connect
+					.prepareStatement("UPDATE Cliente SET nome = ?, sobrenome = ?, rua = ?, numero = ?, bairro = ?, telefone = ?, email = ? WHERE idCliente = ?");
+
+			// Realiza o bind dos valores
+			statement.setString(1, this.nome);
+			statement.setString(2, this.sobrenome);
+			statement.setString(3, this.rua);
+			statement.setInt(4, this.numero);
+			statement.setString(5, this.bairro);
+			statement.setString(6, this.telefone);
+			statement.setString(7, this.email);
+			statement.setInt(8, this.idCliente);
+
+			// Executa o SQL
+			int ret = statement.executeUpdate();
+
+			// Encerra conexao
+			connect.close();
+
+			// Retorna resultado
+			if (ret == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Um erro ocorreu ao atualizar o cliente");
+		}
+	}
+
+	public boolean delete() {
+		try {
+			// Obtem uma conexão com o banco de dados
+			Connection connect = DatabaseConnect.getInstance();
+
+			// Cria um prepared statement
+			PreparedStatement statement = (PreparedStatement) connect
+					.prepareStatement("DELETE FROM Cliente WHERE idCliente = ?");
+
+			// Realiza o bind dos valores
+			statement.setInt(1, this.idCliente);
+
+			// Executa o SQL
+			int ret = statement.executeUpdate();
+
+			// Encerra conexao
+			connect.close();
+
+			// Retorna resultado
+			if (ret == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Um erro ocorreu ao deletar o cliente");
 		}
 	}
 }
