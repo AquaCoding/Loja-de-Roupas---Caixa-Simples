@@ -233,4 +233,13 @@ public class Produto {
 			throw new RuntimeException("Um erro ocorreu ao deletar o cliente");
 		}
 	}
+	
+	public boolean vender(int qtd) {
+		if(this.qtd - qtd >= 0) {
+			setQtd(this.qtd - qtd);
+			return update();
+		} else {
+			throw new RuntimeException("Não é possivel vender mais do que existe em estoque - Estoque = " + this.qtd);
+		}
+	}
 }

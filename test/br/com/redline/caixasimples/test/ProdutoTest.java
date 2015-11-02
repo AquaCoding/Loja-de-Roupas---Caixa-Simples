@@ -27,8 +27,7 @@ public class ProdutoTest {
 			e.printStackTrace();
 		}
 
-		p = new Produto("Produto A", "1234567891234", "Um belo produto", 5,
-				new BigDecimal(9.99));
+		p = new Produto("Produto A", "1234567891234", "Um belo produto", 5, new BigDecimal(9.99));
 		assertEquals(true, p.create());
 	}
 
@@ -85,5 +84,17 @@ public class ProdutoTest {
 		assertEquals(true, p.delete());
 		ArrayList<Produto> produtos = Produto.getAll();
 		assertEquals(0, produtos.size());
+	}
+	
+	@Test
+	public void vendaProduto() {
+		assertEquals(true, p.vender(2));
+		ArrayList<Produto> produtos = Produto.getAll();
+		assertEquals(3, produtos.get(0).getQtd());
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void vendaProdutoComErro() {
+		p.vender(6);
 	}
 }
