@@ -3,9 +3,9 @@ package br.com.redline.caixasimples.model;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.sql.Statement;
+import java.util.ArrayList;
 import com.mysql.jdbc.PreparedStatement;
-
 import br.com.redline.caixasimples.util.BCrypt;
 import br.com.redline.caixasimples.util.DatabaseConnect;
 
@@ -41,7 +41,7 @@ public class Usuario {
 	}
 
 	public void setSenha(String senha) {
-		if (!senha.matches("[\\S]{8,}"))
+		if (!senha.matches("[\\S ]{8,}"))
 			throw new RuntimeException("O valor de senha é inválido");
 
 		this.senha = senha;
@@ -70,7 +70,7 @@ public class Usuario {
 
 			// Cria um prepared statement
 			PreparedStatement statement = (PreparedStatement) connect
-					.prepareStatement("INSERT INTO Usuario (nome, senha) VALUES (?, ?)");
+					.prepareStatement("INSERT INTO Usuario (nome, senha) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 			// Realiza o bind dos valores
 			statement.setString(1, this.nome);
@@ -78,14 +78,19 @@ public class Usuario {
 
 			// Executa o SQL
 			int ret = statement.executeUpdate();
-
-			// Encerra conexao
-			connect.close();
-
+			
 			// Retorna resultado
 			if (ret == 1) {
+				//Define o id a classe
+				ResultSet id = statement.getGeneratedKeys();
+				while(id.next())
+					setIdUsuario(id.getInt(1));
+				// Encerra conexao
+				connect.close();
 				return true;
 			} else {
+				// Encerra conexao
+				connect.close();
 				return false;
 			}
 		} catch (SQLException e) {
@@ -163,6 +168,102 @@ public class Usuario {
 			return BCrypt.checkpw(senha, u.getSenha());
 		} catch (RuntimeException e) {
 			return false;
+		}
+	}
+	
+	public static ArrayList<Usuario> getAll() {
+		try{
+			// Obtem uma conexão com o banco de dados
+			Connection connect = DatabaseConnect.getInstance();
+			
+			// Cria um statement
+			Statement statement = connect.createStatement();
+			
+			// Executa um SQL
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Usuario");
+			
+			ArrayList<Usuario> usuarioReturn = new ArrayList<Usuario>();
+			while(resultSet.next()) {
+				// Cria um cliente com os dados do BD
+				Usuario c = new Usuario(resultSet.getInt("idUsuario"), 
+										resultSet.getString("nome"), 
+										resultSet.getString("senha"));
+				
+				// Adiciona o cliente ao retorno
+				usuarioReturn.add(c);
+			}
+			
+			// Retorna os clientes
+			return usuarioReturn;
+		} catch (SQLException e) {
+			throw new RuntimeException("Um erro ocorreu");
+		}
+	}
+	
+	public boolean update() {
+		try {
+			// Obtem uma conexão com o banco de dados
+			Connection connect = DatabaseConnect.getInstance();
+			
+			// Realiza o hash da senha se necessario
+			Usuario c = Usuario.getById(this.idUsuario);
+			if(c.getSenha() != this.senha)
+				this.senha = BCrypt.hashpw(this.senha, BCrypt.gensalt(12));
+
+			// Cria um prepared statement
+			PreparedStatement statement = (PreparedStatement) connect
+					.prepareStatement("UPDATE Usuario SET nome = ?, senha = ? WHERE idUsuario = ?");
+
+			// Realiza o bind dos valores
+			statement.setString(1, this.nome);
+			statement.setString(2, this.senha);
+			statement.setInt(3, this.idUsuario);
+
+			// Executa o SQL
+			int ret = statement.executeUpdate();
+
+			// Encerra conexao
+			connect.close();
+			
+			// Retorna resultado
+			if (ret == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Um erro ocorreu ao atualizar o cliente");
+		}
+	}
+
+	public boolean delete() {
+		try {
+			// Obtem uma conexão com o banco de dados
+			Connection connect = DatabaseConnect.getInstance();
+
+			// Cria um prepared statement
+			PreparedStatement statement = (PreparedStatement) connect
+					.prepareStatement("DELETE FROM Usuario WHERE idUsuario = ?");
+
+			// Realiza o bind dos valores
+			statement.setInt(1, this.idUsuario);
+
+			// Executa o SQL
+			int ret = statement.executeUpdate();
+
+			// Encerra conexao
+			connect.close();
+
+			// Retorna resultado
+			if (ret == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Um erro ocorreu ao deletar o cliente");
 		}
 	}
 }

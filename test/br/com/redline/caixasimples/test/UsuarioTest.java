@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import br.com.redline.caixasimples.model.Usuario;
@@ -88,5 +88,34 @@ public class UsuarioTest {
 	@Test
 	public void verificaSenhaErrada() {
 		assertEquals(false, Usuario.isValidSenha("Rodrigo", "12345678"));
+	}
+	
+	@Test
+	public void getAll() {
+		u = new Usuario("Usuario B", "12345678");
+		u.create();
+		
+		ArrayList<Usuario> usuarios = Usuario.getAll();
+		
+		assertEquals(2, usuarios.size());
+		assertEquals(1, usuarios.get(0).getIdUsuario());
+		assertEquals("Rodrigo", usuarios.get(0).getNome());
+		assertEquals(2, usuarios.get(1).getIdUsuario());
+		assertEquals("Usuario B", usuarios.get(1).getNome());
+	}
+	
+	@Test
+	public void atualizaUsuario() {
+		u.setNome("Usuario B");
+		u.setSenha("Minha nova Senha");
+		assertEquals(true, u.update());
+		assertEquals(true, Usuario.isValidSenha("Usuario B", "Minha nova Senha"));
+	}
+	
+	@Test
+	public void deletaUsuario() {
+		assertEquals(true, u.delete());
+		ArrayList<Usuario> usuarios = Usuario.getAll();
+		assertEquals(0, usuarios.size());
 	}
 }

@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import br.com.redline.caixasimples.util.DatabaseConnect;
-
 import com.mysql.jdbc.PreparedStatement;
 
 public class Cliente {
