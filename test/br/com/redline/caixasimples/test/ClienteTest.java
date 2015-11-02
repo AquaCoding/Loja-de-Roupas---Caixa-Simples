@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -69,5 +70,19 @@ public class ClienteTest {
 	@Test(expected=RuntimeException.class)
 	public void setEmailErrado() {
 		c.setEmail("A");
+	}
+	
+	@Test
+	public void getAll() {
+		c = new Cliente("Cliente B", "Sobrenome B", "Rua B", 20, "Bairro B", "1211111111", "clienteb@example.com");
+		c.create();
+		
+		ArrayList<Cliente> clientes = Cliente.getAll();
+		
+		assertEquals(2, clientes.size());
+		assertEquals(1, clientes.get(0).getIdCliente());
+		assertEquals("Rodrigo", clientes.get(0).getNome());
+		assertEquals(2, clientes.get(1).getIdCliente());
+		assertEquals("Cliente B", clientes.get(1).getNome());
 	}
 }
