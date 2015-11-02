@@ -1,5 +1,5 @@
 USE Loja;
-DROP TABLE usuario;
+DROP TABLE IF EXISTS usuario;
 CREATE TABLE usuario (
 	idusuario		INT				NOT NULL auto_increment,
     nome			VARCHAR(45)		NOT NULL UNIQUE,

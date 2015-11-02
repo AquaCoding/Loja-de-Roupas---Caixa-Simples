@@ -1,5 +1,5 @@
 USE Loja;
-DROP TABLE cliente;
+DROP TABLE IF EXISTS cliente;
 CREATE TABLE cliente (
 	idCliente		INT				NOT NULL auto_increment,
     nome			VARCHAR(45) 	NOT NULL,

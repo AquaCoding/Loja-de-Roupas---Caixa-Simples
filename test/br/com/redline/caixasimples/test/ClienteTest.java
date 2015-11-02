@@ -32,11 +32,6 @@ public class ClienteTest {
 		assertEquals(true, c.create());
 	}
 	
-	@Test
-	public void testaClienteContato() {
-		assertEquals(true, c.create());
-	}
-	
 	@Test(expected=RuntimeException.class)
 	public void setNomeErrado() {
 		c.setNome("A");
