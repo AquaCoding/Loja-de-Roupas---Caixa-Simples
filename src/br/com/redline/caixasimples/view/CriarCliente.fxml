@@ -6,76 +6,76 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="348.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.redline.caixasimples.controller.CriarClienteController">
+<AnchorPane prefHeight="348.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.redline.caixasimples.controller.CriarClienteController">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Label">
+            <Label text="Nome">
                <VBox.margin>
                   <Insets left="14.0" top="14.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfNome" nodeOrientation="LEFT_TO_RIGHT" promptText="Nome">
+            <TextField fx:id="tfNome" nodeOrientation="LEFT_TO_RIGHT">
                <VBox.margin>
                   <Insets bottom="14.0" left="14.0" right="14.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Label">
+            <Label text="Sobrenome">
                <VBox.margin>
                   <Insets left="14.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfSobrenome" prefHeight="25.0" prefWidth="169.0" promptText="Sobrenome">
+            <TextField fx:id="tfSobrenome" prefHeight="25.0" prefWidth="169.0">
                <VBox.margin>
                   <Insets bottom="14.0" left="14.0" right="14.0" />
                </VBox.margin>
             </TextField>
-            <Label layoutX="10.0" layoutY="80.0" text="Label">
+            <Label layoutX="10.0" layoutY="80.0" text="Rua">
                <VBox.margin>
                   <Insets left="14.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfRua" prefHeight="25.0" prefWidth="169.0" promptText="Rua">
+            <TextField fx:id="tfRua" prefHeight="25.0" prefWidth="169.0">
                <VBox.margin>
                   <Insets bottom="14.0" left="14.0" right="14.0" />
                </VBox.margin>
             </TextField>
-            <Label layoutX="10.0" layoutY="136.0" text="Label">
+            <Label layoutX="10.0" layoutY="136.0" text="Número">
                <VBox.margin>
                   <Insets left="14.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfNumero" prefHeight="25.0" prefWidth="169.0" promptText="Número">
+            <TextField fx:id="tfNumero" prefHeight="25.0" prefWidth="169.0">
                <VBox.margin>
                   <Insets bottom="14.0" left="14.0" right="14.0" />
                </VBox.margin>
             </TextField>
-            <Label layoutX="10.0" layoutY="192.0" text="Label">
+            <Label layoutX="10.0" layoutY="192.0" text="Bairro">
                <VBox.margin>
                   <Insets left="14.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfBairro" prefHeight="25.0" prefWidth="169.0" promptText="Bairro">
+            <TextField fx:id="tfBairro" prefHeight="25.0" prefWidth="169.0">
                <VBox.margin>
                   <Insets bottom="14.0" left="14.0" right="14.0" />
                </VBox.margin>
             </TextField>
-            <Label layoutX="24.0" layoutY="343.0" text="Label">
+            <Label layoutX="24.0" layoutY="343.0" text="Telefone">
                <VBox.margin>
                   <Insets left="14.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfTelefone" prefHeight="25.0" prefWidth="169.0" promptText="Telefone">
+            <TextField fx:id="tfTelefone" prefHeight="25.0" prefWidth="169.0">
                <VBox.margin>
                   <Insets bottom="14.0" left="14.0" right="14.0" />
                </VBox.margin>
             </TextField>
-            <Label layoutX="10.0" layoutY="248.0" text="Label">
+            <Label layoutX="10.0" layoutY="248.0" text="Email">
                <VBox.margin>
                   <Insets left="14.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfEmail" prefHeight="25.0" prefWidth="169.0" promptText="Email">
+            <TextField fx:id="tfEmail" prefHeight="25.0" prefWidth="169.0">
                <VBox.margin>
                   <Insets bottom="14.0" left="14.0" right="14.0" />
                </VBox.margin>
