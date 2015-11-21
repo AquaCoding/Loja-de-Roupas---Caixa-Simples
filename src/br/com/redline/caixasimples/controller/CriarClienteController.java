@@ -36,7 +36,9 @@ public class CriarClienteController {
 			alert.showAndWait();
 			Main.showViewCaixa();
 		} catch (RuntimeException e) {
-			tfNumero.setText("");
+			if(e.getMessage().equals("O valor de numero é inválido"))
+				tfNumero.setText("");
+			
 			alert.setTitle("Um erro ocorreu ao criar o cliente");
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();

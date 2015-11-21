@@ -7,33 +7,39 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane prefHeight="344.0" prefWidth="574.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
-   <top>
-      <VBox fillWidth="false" spacing="5.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label prefHeight="40.0" prefWidth="351.0" text="Nova entrada no estoque">
-               <font>
-                  <Font name="System Bold" size="28.0" />
-               </font>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </Label>
-            <HBox prefHeight="60.0" prefWidth="574.0" spacing="10.0">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.redline.caixasimples.controller.EntradaEstoqueController">
+   <children>
+      <BorderPane fx:id="bpMain" layoutX="10.0" layoutY="10.0" prefHeight="344.0" prefWidth="574.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <VBox fillWidth="false" prefHeight="82.0" prefWidth="574.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="bNovoProduto" mnemonicParsing="false" prefHeight="30.0" prefWidth="221.0" text="Adicionar um novo produto">
-                     <HBox.margin>
+                  <Label prefHeight="40.0" prefWidth="351.0" text="Nova entrada no estoque">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                     <padding>
                         <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="bEditarProduto" mnemonicParsing="false" prefHeight="30.0" prefWidth="221.0" text="Adicionar um produto já cadastrado" />
+                     </padding>
+                  </Label>
+                  <HBox prefHeight="60.0" prefWidth="574.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="bNovoProduto" mnemonicParsing="false" onMouseClicked="#abrirEstoqueNovoProduto" prefHeight="30.0" prefWidth="221.0" text="Adicionar um novo produto">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="bEditarProduto" mnemonicParsing="false" onMouseClicked="#abrirEstoqueProdutoExistente" prefHeight="30.0" prefWidth="221.0" text="Adicionar um produto já cadastrado" />
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
                </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-         </children>
-      </VBox>
-   </top>
-</BorderPane>
+            </VBox>
+         </top>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

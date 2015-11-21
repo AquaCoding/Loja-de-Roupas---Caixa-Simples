@@ -35,7 +35,7 @@ public class Cliente {
 	}
 
 	public void setNome(String nome) {
-		if (!nome.matches("^[a-zA-Zà-úÀ-Ú ]{3,45}$"))
+		if (!nome.matches("^[a-zA-Zà-úÀ-Ú ]{1,45}$"))
 			throw new RuntimeException("O valor de nome é inválido");
 		this.nome = nome;
 	}
@@ -55,7 +55,7 @@ public class Cliente {
 	}
 
 	public void setRua(String rua) {
-		if (!rua.matches("^[a-zA-Zà-úÀ-Ú1-9 ]{3,45}$"))
+		if (!rua.matches("^[a-zA-Zà-úÀ-Ú1-9 ]{1,45}$"))
 			throw new RuntimeException("O valor de rua é inválido");
 		this.rua = rua;
 	}
@@ -75,7 +75,7 @@ public class Cliente {
 	}
 
 	public void setBairro(String bairro) {
-		if (!bairro.matches("^[a-zA-Zà-úÀ-Ú1-9 ]{3,45}$"))
+		if (!bairro.matches("^[a-zA-Zà-úÀ-Ú1-9 ]{1,45}$"))
 			throw new RuntimeException("O valor de bairro é inválido");
 		this.bairro = bairro;
 	}
@@ -95,7 +95,7 @@ public class Cliente {
 	}
 
 	public void setEmail(String email) {
-		if (!email.matches("^[\\w]+@[\\w]+\\.[\\w]{3}"))
+		if (!email.matches("^[\\w]+@[\\w]+\\.[\\w.]+"))
 			throw new RuntimeException("O valor de email é inválido");
 		this.email = email;
 	}

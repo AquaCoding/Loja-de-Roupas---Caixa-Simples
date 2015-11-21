@@ -15,7 +15,10 @@
                <items>
                   <MenuItem fx:id="mCadastroCliente" mnemonicParsing="false" onAction="#cadastrarClienteClick" text="Cadastrar" />
                </items></Menu>
-          <Menu fx:id="mProdutos" mnemonicParsing="false" text="Produtos" />
+          <Menu fx:id="mProdutos" mnemonicParsing="false" text="Produtos">
+               <items>
+                  <MenuItem fx:id="mNovoEstoque" mnemonicParsing="false" onAction="#novoEstoqueClick" text="Nova entrada no estoque" />
+               </items></Menu>
             <Menu fx:id="mSobre" mnemonicParsing="false" text="Sobre" />
         </menus>
       </MenuBar>

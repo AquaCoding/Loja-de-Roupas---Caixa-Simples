@@ -100,7 +100,20 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-
+	
+	// Carrega a view 'EntradaEstoque' dentro do RootLayout
+	public static void showViewEntradaEstoque() {
+		try {
+			primaryStage.setTitle(pageTitle + " - Entrada no estoque");
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/EntradaEstoque.fxml"));
+			AnchorPane personOverview = (AnchorPane) loader.load();
+			rootLayout.setCenter(personOverview);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+		
 	public static void main(String[] args) {
 		launch(args);
 	}
