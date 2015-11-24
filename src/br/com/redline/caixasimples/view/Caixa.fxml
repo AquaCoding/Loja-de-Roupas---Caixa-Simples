@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="450.0" prefHeight="400.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="450.0" prefHeight="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.4451754385964912" minHeight="450.0" orientation="VERTICAL" prefHeight="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -61,7 +61,7 @@
                     <columns>
                       <TableColumn fx:id="tcVendaCodigo" prefWidth="176.0" text="Código de barras" />
                       <TableColumn fx:id="tcVendaNome" prefWidth="154.0" text="Nome" />
-                        <TableColumn fx:id="tcVendaEstoque" prefWidth="205.0" text="Estoque" />
+                        <TableColumn fx:id="tcVendaEstoque" prefWidth="205.0" text="Quantidade" />
                         <TableColumn fx:id="tcVendaPreco" prefWidth="262.0" text="Preço" />
                     </columns>
                      <columnResizePolicy>
