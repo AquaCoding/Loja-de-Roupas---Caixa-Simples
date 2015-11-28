@@ -2,21 +2,21 @@ package br.com.redline.caixasimples.controller;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
-import br.com.redline.caixasimples.Main;
-import br.com.redline.caixasimples.model.Cliente;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import br.com.redline.caixasimples.Main;
+import br.com.redline.caixasimples.model.Cliente;
 
 public class VerClienteController implements Initializable {
 	
@@ -57,8 +57,7 @@ public class VerClienteController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		clientes = Cliente.getAll();
-		tCliente.setItems(FXCollections.observableArrayList(clientes));
+		loadContent();
 		setTable();
 	}
 	
@@ -66,7 +65,41 @@ public class VerClienteController implements Initializable {
 	public void buscar() {
 		clientes = Cliente.getAllWithFilters(tfBusca.getText());
 		tCliente.setItems(FXCollections.observableArrayList(clientes));
-		setTable();
+	}
+	
+	@FXML
+	public void editar() {
+		
+	}
+	
+	@FXML
+	public void remover() {
+		Cliente remover = tCliente.getSelectionModel().getSelectedItem();
+		
+		// Cria um alert de confirmação
+		Alert a = new Alert(AlertType.CONFIRMATION);
+        a.setTitle("Remoção de cliente");
+        a.setHeaderText("Confirmação de remoção");
+        a.setContentText("Você tem certeza que deseja remover o cliente " + remover.getNome() + " " + remover.getSobrenome());
+        
+        // Obtem a resposta do usuario
+        Optional<ButtonType> resultado = a.showAndWait();
+        if ((resultado.isPresent()) && (resultado.get() == ButtonType.OK)) {
+        	remover.delete();
+        	loadContent();
+        	
+        	Alert b = new Alert(AlertType.INFORMATION);
+            b.setTitle("Remoção de cliente");
+            a.setHeaderText("Confirmação de remoção");
+            b.setContentText("O cliente foi removido com sucesso");
+            b.showAndWait();
+            
+        }
+	}
+	
+	private void loadContent() {
+		clientes = Cliente.getAll();
+		tCliente.setItems(FXCollections.observableArrayList(clientes));
 	}
 	
 	private void setTable() {
