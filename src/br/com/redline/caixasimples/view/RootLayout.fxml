@@ -9,15 +9,24 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-            <Menu fx:id="mCaixa" mnemonicParsing="false" text="Caixa" />
-          <Menu fx:id="mUsuarios" mnemonicParsing="false" text="Usuários" />
+            <Menu fx:id="mCaixa" mnemonicParsing="false" onAction="#caixaClick" text="Caixa">
+               <items>
+                  <MenuItem fx:id="mVerCaixa" mnemonicParsing="false" onAction="#caixaClick" text="Abrir caixa" />
+               </items></Menu>
+          <Menu fx:id="mUsuarios" mnemonicParsing="false" text="Usuários">
+               <items>
+                  <MenuItem fx:id="mNovoUsuario" mnemonicParsing="false" text="Cadastrar" />
+                  <MenuItem fx:id="mVerTodosUsuarios" mnemonicParsing="false" onAction="#verTodosUsuariosClick" text="Ver todos" />
+               </items></Menu>
           <Menu fx:id="mClientes" mnemonicParsing="false" text="Clientes">
                <items>
                   <MenuItem fx:id="mCadastroCliente" mnemonicParsing="false" onAction="#cadastrarClienteClick" text="Cadastrar" />
+                  <MenuItem fx:id="mVerTodosClientes" mnemonicParsing="false" onAction="#verTodosClientesClick" text="Ver todos" />
                </items></Menu>
           <Menu fx:id="mProdutos" mnemonicParsing="false" text="Produtos">
                <items>
                   <MenuItem fx:id="mNovoEstoque" mnemonicParsing="false" onAction="#novoEstoqueClick" text="Nova entrada no estoque" />
+                  <MenuItem fx:id="mVerTodosPrdutos" mnemonicParsing="false" onAction="#verTodosProdutosClick" text="VerTodos" />
                </items></Menu>
             <Menu fx:id="mSobre" mnemonicParsing="false" text="Sobre" />
         </menus>

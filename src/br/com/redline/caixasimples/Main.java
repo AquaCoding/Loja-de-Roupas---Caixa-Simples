@@ -113,6 +113,45 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	// Carrega a view 'Usuario' dentro do RootLayout
+	public static void showUsuarios() {
+		try {
+			primaryStage.setTitle(pageTitle + " - Todos os usuarios");
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/Usuario.fxml"));
+			AnchorPane personOverview = (AnchorPane) loader.load();
+			rootLayout.setCenter(personOverview);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// Carrega a view 'Produto' dentro do RootLayout
+	public static void showProdutos() {
+		try {
+			primaryStage.setTitle(pageTitle + " - Todos os produtos");
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/Produtos.fxml"));
+			AnchorPane personOverview = (AnchorPane) loader.load();
+			rootLayout.setCenter(personOverview);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// Carrega a view 'Cliente' dentro do RootLayout
+	public static void showClientes() {
+		try {
+			primaryStage.setTitle(pageTitle + " - Todos os clientes");
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/Cliente.fxml"));
+			AnchorPane personOverview = (AnchorPane) loader.load();
+			rootLayout.setCenter(personOverview);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 		
 	public static void main(String[] args) {
 		launch(args);

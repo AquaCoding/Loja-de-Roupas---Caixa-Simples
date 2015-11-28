@@ -198,6 +198,59 @@ public class Cliente {
 		}
 	}
 	
+	public static ArrayList<Cliente> getAllWithFilters(String filter) {
+		try{
+			// Define % para o LIKE procurar no meio do conteudo
+			filter = "%" + filter + "%";
+			
+			// Obtem uma conexão com o banco de dados
+			Connection connect = DatabaseConnect.getInstance();
+
+			// Cria um prepared statement
+			PreparedStatement statement = (PreparedStatement) connect
+					.prepareStatement("SELECT * FROM Cliente WHERE nome LIKE ? OR "
+																+ "sobrenome LIKE ? OR "
+																+ "rua LIKE ? OR "
+																+ "numero LIKE ? OR "
+																+ "bairro LIKE ? OR "
+																+ "telefone LIKE ? OR "
+																+ "email LIKE ?");
+			
+			// Faz bind dos parametros
+			statement.setString(1, filter);
+			statement.setString(2, filter);
+			statement.setString(3, filter);
+			statement.setString(4, filter);
+			statement.setString(5, filter);
+			statement.setString(6, filter);
+			statement.setString(7, filter);
+			
+			// Executa um SQL
+			ResultSet resultSet = statement.executeQuery();
+
+			ArrayList<Cliente> clienteReturn = new ArrayList<Cliente>();
+			while(resultSet.next()) {
+				// Cria um cliente com os dados do BD
+				Cliente c = new Cliente(resultSet.getInt("idCliente"), 
+										resultSet.getString("nome"), 
+										resultSet.getString("sobrenome"),
+										resultSet.getString("rua"), 
+										resultSet.getInt("numero"), 
+										resultSet.getString("bairro"), 
+										resultSet.getString("telefone"), 
+										resultSet.getString("email"));
+				
+				// Adiciona o cliente ao retorno
+				clienteReturn.add(c);
+			}
+			
+			// Retorna os clientes
+			return clienteReturn;
+		} catch (SQLException e) {
+			throw new RuntimeException("Um erro ocorreu");
+		}
+	}
+	
 	public boolean update() {
 		try {
 			// Obtem uma conexão com o banco de dados
