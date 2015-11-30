@@ -2,6 +2,8 @@ package br.com.redline.caixasimples;
 
 import java.io.IOException;
 
+import br.com.redline.caixasimples.controller.CriarClienteController;
+import br.com.redline.caixasimples.model.Cliente;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
@@ -89,12 +91,18 @@ public class Main extends Application {
 	}
 
 	// Carrega a view 'CriarCliente' dentro do RootLayout
-	public static void showViewCriarCliente() {
+	public static void showViewCriarCliente(Cliente cliente) {
 		try {
 			primaryStage.setTitle(pageTitle + " - Cadastro de Cliente");
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/CriarCliente.fxml"));
 			AnchorPane personOverview = (AnchorPane) loader.load();
+			
+			if(cliente != null) {
+				CriarClienteController controller = loader.getController();
+				controller.setCliente(cliente);
+			}
+			
 			rootLayout.setCenter(personOverview);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -52,7 +52,7 @@ public class VerClienteController implements Initializable {
 	
 	@FXML
 	public void novoClienteClick() {
-		Main.showViewCriarCliente();
+		Main.showViewCriarCliente(null);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class VerClienteController implements Initializable {
 	
 	@FXML
 	public void editar() {
-		
+		Main.showViewCriarCliente(tCliente.getSelectionModel().getSelectedItem());
 	}
 	
 	@FXML
@@ -90,7 +90,7 @@ public class VerClienteController implements Initializable {
         	
         	Alert b = new Alert(AlertType.INFORMATION);
             b.setTitle("Remoção de cliente");
-            a.setHeaderText("Confirmação de remoção");
+            b.setHeaderText("Confirmação de remoção");
             b.setContentText("O cliente foi removido com sucesso");
             b.showAndWait();
             

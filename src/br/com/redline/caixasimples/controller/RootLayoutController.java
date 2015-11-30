@@ -12,7 +12,7 @@ public class RootLayoutController {
 	
 	@FXML
 	public void cadastrarClienteClick() {
-		Main.showViewCriarCliente();
+		Main.showViewCriarCliente(null);
 	}
 	
 	@FXML
