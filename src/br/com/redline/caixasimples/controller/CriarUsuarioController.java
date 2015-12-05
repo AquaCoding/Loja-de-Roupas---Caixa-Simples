@@ -8,7 +8,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class criarUsuarioController {
+public class CriarUsuarioController {
 	private boolean closeAfterCreate = false;
 	
 	@FXML
@@ -51,6 +51,8 @@ public class criarUsuarioController {
 	public void cancelar() {
 		if(closeAfterCreate) {
 			Main.endLoginLayout();
+		} else {
+			Main.showViewCaixa();
 		}
 	}
 	

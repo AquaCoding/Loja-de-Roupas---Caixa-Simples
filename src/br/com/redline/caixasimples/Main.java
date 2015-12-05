@@ -3,7 +3,7 @@ package br.com.redline.caixasimples;
 import java.io.IOException;
 
 import br.com.redline.caixasimples.controller.CriarClienteController;
-import br.com.redline.caixasimples.controller.criarUsuarioController;
+import br.com.redline.caixasimples.controller.CriarUsuarioController;
 import br.com.redline.caixasimples.model.Cliente;
 import br.com.redline.caixasimples.model.Usuario;
 import javafx.application.Application;
@@ -87,7 +87,7 @@ public class Main extends Application {
 			
 			Parent root = loader.load();
 			
-			criarUsuarioController controller = loader.getController();
+			CriarUsuarioController controller = loader.getController();
 			controller.setCloseAfterCreate(true);
 			
 			Scene scene = new Scene(root, 273, 223);
@@ -192,6 +192,19 @@ public class Main extends Application {
 			primaryStage.setTitle(pageTitle + " - Todos os clientes");
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/Cliente.fxml"));
+			AnchorPane personOverview = (AnchorPane) loader.load();
+			rootLayout.setCenter(personOverview);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// Carrega a view 'Cliente' dentro do RootLayout
+	public static void showViewCriarUsuario() {
+		try {
+			primaryStage.setTitle(pageTitle + " - Novo usuário");
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/CriarUsuario.fxml"));
 			AnchorPane personOverview = (AnchorPane) loader.load();
 			rootLayout.setCenter(personOverview);
 		} catch (IOException e) {

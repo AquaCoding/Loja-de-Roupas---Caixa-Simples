@@ -34,4 +34,9 @@ public class RootLayoutController {
 	public void verTodosClientesClick() {
 		Main.showClientes();
 	}
+	
+	@FXML
+	public void criarUsuarioClick() {
+		Main.showViewCriarUsuario();
+	}
 }
