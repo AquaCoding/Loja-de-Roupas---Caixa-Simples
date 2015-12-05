@@ -3,6 +3,7 @@ package br.com.redline.caixasimples;
 import java.io.IOException;
 
 import br.com.redline.caixasimples.controller.CriarClienteController;
+import br.com.redline.caixasimples.controller.criarUsuarioController;
 import br.com.redline.caixasimples.model.Cliente;
 import br.com.redline.caixasimples.model.Usuario;
 import javafx.application.Application;
@@ -42,14 +43,21 @@ public class Main extends Application {
 	}
 
 	// Realiza a inicialização da janela de login
-	public void initLoginLayout() {
+	public static void initLoginLayout() {
 		try {
+			if(loginStage == null) {
+				loginStage.setResizable(false);
+				loginStage.initModality(Modality.APPLICATION_MODAL);
+				loginStage.setAlwaysOnTop(true);
+			}
+			
 			if(!Usuario.haveUsuario()) {
 				Alert a = new Alert(AlertType.INFORMATION);
 	            a.setTitle("Primeiro acesso");
-	            a.setHeaderText("Configuração de primeiro acesso");
+	            a.setHeaderText(null);
 	            a.setContentText("É preciso criar um usuario");
 	            a.showAndWait();
+	            initPrimeiroAcesso();
 			} else {
 				// Carrega o root layout do arquivo fxml.
 				Parent root = FXMLLoader.load(Main.class
@@ -57,9 +65,6 @@ public class Main extends Application {
 				Scene scene = new Scene(root, 300, 150);
 				loginStage.setTitle(pageTitle + " - Entrar");
 				loginStage.setScene(scene);
-				loginStage.setResizable(false);
-				loginStage.initModality(Modality.APPLICATION_MODAL);
-				loginStage.setAlwaysOnTop(true);
 				loginStage.show();
 			}
 			
@@ -70,7 +75,28 @@ public class Main extends Application {
 
 	// Fecha a janela de login
 	public static void endLoginLayout() {
-		loginStage.hide();
+		loginStage.close();
+	}
+	
+	// Realiza a inicialização da janela princpal
+	public static void initPrimeiroAcesso() {
+		try {
+			// Carrega o root layout do arquivo fxml.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/CriarUsuario.fxml"));
+			
+			Parent root = loader.load();
+			
+			criarUsuarioController controller = loader.getController();
+			controller.setCloseAfterCreate(true);
+			
+			Scene scene = new Scene(root, 273, 223);
+			loginStage.setTitle(pageTitle + " - Criando primeiro usuario");
+			loginStage.setScene(scene);
+			loginStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// Realiza a inicialização da janela princpal

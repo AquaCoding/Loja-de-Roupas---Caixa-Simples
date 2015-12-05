@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="348.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.redline.caixasimples.controller.CriarClienteController">
+<AnchorPane prefHeight="348.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.redline.caixasimples.controller.CriarClienteController">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -82,8 +82,8 @@
             </TextField>
             <AnchorPane layoutX="10.0" layoutY="304.0">
                <children>
-                  <Button fx:id="bCadastrar1" mnemonicParsing="false" onMouseClicked="#cadastrarClick" prefHeight="33.0" prefWidth="90.0" text="Cadastrar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-                  <Button fx:id="bCancelar1" mnemonicParsing="false" onMouseClicked="#cancelar" prefHeight="33.0" prefWidth="90.0" text="Cancelar" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                  <Button fx:id="bCadastrar1" mnemonicParsing="false" onMouseClicked="#cadastrarClick" prefHeight="33.0" prefWidth="90.0" text="Cadastrar" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                  <Button fx:id="bCancelar1" mnemonicParsing="false" onMouseClicked="#cancelar" prefHeight="33.0" prefWidth="90.0" text="Cancelar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
                </children>
             </AnchorPane>
          </children>
