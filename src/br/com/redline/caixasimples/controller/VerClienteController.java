@@ -79,7 +79,7 @@ public class VerClienteController implements Initializable {
 		// Cria um alert de confirmação
 		Alert a = new Alert(AlertType.CONFIRMATION);
         a.setTitle("Remoção de cliente");
-        a.setHeaderText("Confirmação de remoção");
+        a.setHeaderText(null);
         a.setContentText("Você tem certeza que deseja remover o cliente " + remover.getNome() + " " + remover.getSobrenome());
         
         // Obtem a resposta do usuario
@@ -90,7 +90,7 @@ public class VerClienteController implements Initializable {
         	
         	Alert b = new Alert(AlertType.INFORMATION);
             b.setTitle("Remoção de cliente");
-            b.setHeaderText("Confirmação de remoção");
+            b.setHeaderText(null);
             b.setContentText("O cliente foi removido com sucesso");
             b.showAndWait();
             

@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 import com.mysql.jdbc.PreparedStatement;
+
 import br.com.redline.caixasimples.util.BCrypt;
 import br.com.redline.caixasimples.util.DatabaseConnect;
 
@@ -238,6 +240,10 @@ public class Usuario {
 	}
 
 	public boolean delete() {
+		if(this.idUsuario == 1) {
+			throw new RuntimeException("O primeiro usuário não pode ser removido");
+		}
+		
 		try {
 			// Obtem uma conexão com o banco de dados
 			Connection connect = DatabaseConnect.getInstance();
