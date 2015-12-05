@@ -266,4 +266,33 @@ public class Usuario {
 			throw new RuntimeException("Um erro ocorreu ao deletar o cliente");
 		}
 	}
+	
+	// Verifica se um usuario existe ou se nenhum usuario foi definido no sistema
+	public static boolean haveUsuario() {
+		try {
+			// Obtem uma conexão com o banco de dados
+			Connection connect = DatabaseConnect.getInstance();
+	
+			// Cria um prepared statement
+			PreparedStatement statement = (PreparedStatement) connect
+					.prepareStatement("SELECT COUNT(idUsuario) as numUsuario FROM Usuario");
+	
+			// Executa o SQL
+			ResultSet resultSet = statement.executeQuery();
+	
+			// Percorre pelo resultado
+			if (resultSet.next()) {
+				if(resultSet.getInt("numUsuario") == 0) {
+					return false;
+				}
+				
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new RuntimeException("Um erro ocorreu ao buscar o usuário");
+		}
+	}
 }

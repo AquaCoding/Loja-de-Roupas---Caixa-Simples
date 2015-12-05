@@ -4,12 +4,15 @@ import java.io.IOException;
 
 import br.com.redline.caixasimples.controller.CriarClienteController;
 import br.com.redline.caixasimples.model.Cliente;
+import br.com.redline.caixasimples.model.Usuario;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -41,16 +44,25 @@ public class Main extends Application {
 	// Realiza a inicialização da janela de login
 	public void initLoginLayout() {
 		try {
-			// Carrega o root layout do arquivo fxml.
-			Parent root = FXMLLoader.load(Main.class
-					.getResource("view/Login.fxml"));
-			Scene scene = new Scene(root, 300, 150);
-			loginStage.setTitle(pageTitle + " - Entrar");
-			loginStage.setScene(scene);
-			loginStage.setResizable(false);
-			loginStage.initModality(Modality.APPLICATION_MODAL);
-			loginStage.setAlwaysOnTop(true);
-			loginStage.show();
+			if(!Usuario.haveUsuario()) {
+				Alert a = new Alert(AlertType.INFORMATION);
+	            a.setTitle("Primeiro acesso");
+	            a.setHeaderText("Configuração de primeiro acesso");
+	            a.setContentText("É preciso criar um usuario");
+	            a.showAndWait();
+			} else {
+				// Carrega o root layout do arquivo fxml.
+				Parent root = FXMLLoader.load(Main.class
+						.getResource("view/Login.fxml"));
+				Scene scene = new Scene(root, 300, 150);
+				loginStage.setTitle(pageTitle + " - Entrar");
+				loginStage.setScene(scene);
+				loginStage.setResizable(false);
+				loginStage.initModality(Modality.APPLICATION_MODAL);
+				loginStage.setAlwaysOnTop(true);
+				loginStage.show();
+			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

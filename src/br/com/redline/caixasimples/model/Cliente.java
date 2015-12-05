@@ -75,7 +75,7 @@ public class Cliente {
 	}
 
 	public void setBairro(String bairro) {
-		if (!bairro.matches("^[a-zA-Zà-úÀ-Ú1-9 ]{1,45}$"))
+		if (!bairro.matches("^[a-zA-Zà-úÀ-Ú1-9 -_]{1,45}$"))
 			throw new RuntimeException("O valor de bairro é inválido");
 		this.bairro = bairro;
 	}
