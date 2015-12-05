@@ -95,7 +95,7 @@ public class Cliente {
 	}
 
 	public void setEmail(String email) {
-		if (!email.matches("^[\\w]+@[\\w]+\\.[\\w.]+"))
+		if (!email.matches("^[\\w.]+@[\\w]+\\.[\\w.]+"))
 			throw new RuntimeException("O valor de email é inválido");
 		this.email = email;
 	}
