@@ -59,7 +59,7 @@ public class CriarClienteController {
 					if(c.update()) {
 						Alert a = new Alert(AlertType.INFORMATION);
 			            a.setTitle("Atualização de cliente");
-			            a.setHeaderText("Confirmação de atualização");
+			            a.setHeaderText(null);
 			            a.setContentText("O cliente " + c.getNome() + " " + c.getSobrenome() + " foi atualizado com sucesso");
 			            a.showAndWait();
 			            

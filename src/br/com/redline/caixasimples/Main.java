@@ -200,12 +200,18 @@ public class Main extends Application {
 	}
 	
 	// Carrega a view 'Cliente' dentro do RootLayout
-	public static void showViewCriarUsuario() {
+	public static void showViewCriarUsuario(Usuario usuario) {
 		try {
-			primaryStage.setTitle(pageTitle + " - Novo usuário");
+			primaryStage.setTitle(pageTitle + " - Cadastro de Usuário");
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/CriarUsuario.fxml"));
 			AnchorPane personOverview = (AnchorPane) loader.load();
+			
+			if(usuario != null) {
+				CriarUsuarioController controller = loader.getController();
+				controller.setUsuario(usuario);
+			}
+			
 			rootLayout.setCenter(personOverview);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -15,7 +15,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import br.com.redline.caixasimples.Main;
-import br.com.redline.caixasimples.model.Cliente;
 import br.com.redline.caixasimples.model.Usuario;
 
 public class VerUsuarioController implements Initializable {
@@ -30,7 +29,12 @@ public class VerUsuarioController implements Initializable {
 	
 	@FXML
 	public void abreCriarUsuario() {
-		Main.showViewCriarUsuario();
+		Main.showViewCriarUsuario(null);
+	}
+	
+	@FXML
+	public void editar() {
+		Main.showViewCriarUsuario(tUsuario.getSelectionModel().getSelectedItem());
 	}
 	
 	@FXML

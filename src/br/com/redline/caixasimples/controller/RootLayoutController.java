@@ -37,6 +37,6 @@ public class RootLayoutController {
 	
 	@FXML
 	public void criarUsuarioClick() {
-		Main.showViewCriarUsuario();
+		Main.showViewCriarUsuario(null);
 	}
 }

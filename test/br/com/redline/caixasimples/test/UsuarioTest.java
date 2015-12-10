@@ -112,7 +112,7 @@ public class UsuarioTest {
 		assertEquals(true, Usuario.isValidSenha("Usuario B", "Minha nova Senha"));
 	}
 	
-	@Test
+	@Test(expected=RuntimeException.class)
 	public void deletaUsuario() {
 		assertEquals(true, u.delete());
 		ArrayList<Usuario> usuarios = Usuario.getAll();

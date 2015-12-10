@@ -60,6 +60,8 @@ public class Usuario {
 		setNome(nome);
 		setSenha(senha);
 	}
+	
+	public Usuario(){}
 
 	// Cria um usuario
 	public boolean create() {
@@ -209,17 +211,37 @@ public class Usuario {
 			
 			// Realiza o hash da senha se necessario
 			Usuario c = Usuario.getById(this.idUsuario);
-			if(c.getSenha() != this.senha)
+			if(!c.getSenha().equals(this.senha)) {
 				this.senha = BCrypt.hashpw(this.senha, BCrypt.gensalt(12));
+			}
 
+			// Cria a string do prepared statement
+			String sql = "UPDATE USUARIO SET ";
+			boolean comma = false;
+			ArrayList<String> binds = new ArrayList<String>();
+			if(!this.nome.equals("")) {
+				sql += "nome = ?";
+				comma = true;
+				binds.add(this.nome);
+			}
+			if(!this.senha.equals("")) {
+				if(comma) {
+					sql += ", ";
+				}
+				sql += "senha = ?";
+				binds.add(this.senha);
+			}
+			sql += "WHERE idUsuario = ?";
+			
 			// Cria um prepared statement
 			PreparedStatement statement = (PreparedStatement) connect
-					.prepareStatement("UPDATE Usuario SET nome = ?, senha = ? WHERE idUsuario = ?");
+					.prepareStatement(sql);
 
 			// Realiza o bind dos valores
-			statement.setString(1, this.nome);
-			statement.setString(2, this.senha);
-			statement.setInt(3, this.idUsuario);
+			for(int i = 0; i < binds.size(); i++) {
+				statement.setString(i + 1, binds.get(i));
+			}
+			statement.setInt(binds.size() + 1, this.idUsuario);
 
 			// Executa o SQL
 			int ret = statement.executeUpdate();
