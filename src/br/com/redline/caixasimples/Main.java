@@ -1,7 +1,6 @@
 package br.com.redline.caixasimples;
 
 import java.io.IOException;
-
 import br.com.redline.caixasimples.controller.CriarClienteController;
 import br.com.redline.caixasimples.controller.CriarUsuarioController;
 import br.com.redline.caixasimples.model.Cliente;
@@ -63,6 +62,7 @@ public class Main extends Application {
 				Parent root = FXMLLoader.load(Main.class
 						.getResource("view/Login.fxml"));
 				Scene scene = new Scene(root, 300, 150);
+				scene.getStylesheets().add(""+Main.class.getResource("application.css"));
 				loginStage.setTitle(pageTitle + " - Entrar");
 				loginStage.setScene(scene);
 				loginStage.show();
@@ -91,6 +91,7 @@ public class Main extends Application {
 			controller.setCloseAfterCreate(true);
 			
 			Scene scene = new Scene(root, 273, 223);
+			scene.getStylesheets().add(""+Main.class.getResource("application.css"));
 			loginStage.setTitle(pageTitle + " - Criando primeiro usuario");
 			loginStage.setScene(scene);
 			loginStage.show();
@@ -109,6 +110,7 @@ public class Main extends Application {
 
 			// Mostra a scene contendo o root layout.
 			Scene scene = new Scene(rootLayout);
+			scene.getStylesheets().add(""+Main.class.getResource("application.css"));
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (IOException e) {
