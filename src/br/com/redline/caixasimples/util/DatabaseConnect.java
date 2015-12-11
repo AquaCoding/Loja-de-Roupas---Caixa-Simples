@@ -50,6 +50,9 @@ public abstract class DatabaseConnect {
 		} finally {
 			if (st != null)
 				st.close();
+			
+			if(s != null)
+				s.close();
 		}
 	}
 }

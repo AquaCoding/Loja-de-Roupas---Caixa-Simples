@@ -27,7 +27,7 @@
                         <TextField fx:id="tfCodigo" layoutX="14.0" layoutY="58.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="246.0" AnchorPane.topAnchor="58.0" />
                      </children>
                   </Group>
-                  <TableView fx:id="tbCaixa" editable="true" layoutX="6.0" layoutY="88.0" minHeight="100.0" style="-fx-border-width: 100px;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="100.0">
+                  <TableView fx:id="tbCaixa" editable="true" layoutX="6.0" layoutY="88.0" minHeight="100.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="100.0">
                     <columns>
                       <TableColumn fx:id="tcCaixaCodigo" prefWidth="178.0" text="Código de barras" />
                       <TableColumn fx:id="tcCaixaNome" prefWidth="233.0" text="Nome" />
