@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="439.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.redline.caixasimples.controller.NovoProdutoController">
+<AnchorPane prefHeight="439.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.redline.caixasimples.controller.NovoProdutoController">
    <children>
       <TextField fx:id="tfCodigo" layoutX="15.0" layoutY="33.0" prefHeight="25.0" prefWidth="180.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="33.0" />
       <TextField fx:id="tfQuantidade" layoutX="203.0" layoutY="33.0" prefHeight="25.0" prefWidth="180.0" AnchorPane.leftAnchor="203.0" AnchorPane.topAnchor="33.0" />
       <TextField fx:id="tfCusto" layoutX="390.0" layoutY="33.0" prefHeight="25.0" prefWidth="180.0" AnchorPane.leftAnchor="390.0" AnchorPane.topAnchor="33.0" />
-      <TextField fx:id="tfFornecedor" layoutX="14.0" layoutY="82.0" prefHeight="25.0" prefWidth="643.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="82.0" />
+      <TextField fx:id="tfFornecedor" layoutX="14.0" layoutY="82.0" prefHeight="25.0" prefWidth="643.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="81.0" />
       <TextField fx:id="tfNome" layoutX="14.0" layoutY="130.0" prefHeight="25.0" prefWidth="180.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="130.0" />
       <TextField fx:id="tfPreco" layoutX="202.0" layoutY="130.0" prefHeight="25.0" prefWidth="180.0" AnchorPane.leftAnchor="202.0" AnchorPane.topAnchor="130.0" />
       <TextArea fx:id="taDescricao" layoutX="14.0" layoutY="189.0" prefHeight="127.0" prefWidth="643.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="189.0" />
