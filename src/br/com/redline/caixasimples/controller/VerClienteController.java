@@ -80,7 +80,7 @@ public class VerClienteController implements Initializable {
 		Alert a = new Alert(AlertType.CONFIRMATION);
         a.setTitle("Remoção de cliente");
         a.setHeaderText(null);
-        a.setContentText("Você tem certeza que deseja remover o cliente " + remover.getNome() + " " + remover.getSobrenome());
+        a.setContentText("Você tem certeza que deseja remover o cliente " + remover.getNome() + " " + remover.getSobrenome()+"?");
         
         // Obtem a resposta do usuario
         Optional<ButtonType> resultado = a.showAndWait();

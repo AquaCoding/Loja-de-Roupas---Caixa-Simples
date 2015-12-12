@@ -124,43 +124,101 @@ public class Produto {
 	
 	public boolean create() {
 		try {
-			// Obtem uma conexão com o banco de dados
-			Connection connect = DatabaseConnect.getInstance();
-
-			// Cria um prepared statement
-			PreparedStatement statement = (PreparedStatement) connect
-					.prepareStatement("INSERT INTO Produto (nomeProduto, codigoBarras, descricao, qtd, precoVenda) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-
-			// Realiza o bind dos valores
-			statement.setString(1, this.nomeProduto);
-			statement.setString(2, this.codigoBarras);
-			statement.setString(3, this.descricao);
-			statement.setInt(4, this.qtd);
-			statement.setBigDecimal(5, this.precoVenda);
-			
-			// Executa o SQL
-			int ret = statement.executeUpdate();
-
-			// Retorna resultado
-			if (ret == 1) {
-				//Define o id a classe
-				ResultSet id = statement.getGeneratedKeys();
-				while(id.next())
-					setIdProduto(id.getInt(1));
-				
-				// Encerra conexao
-				connect.close();
-				return true;
+			// Verifica codigo de barras
+			if(haveCodigoBarras(this.codigoBarras)) {
+				throw new RuntimeException("Código de barras ja informado");
 			} else {
-				// Encerra conexao
-				connect.close();
-				return false;
+				// Obtem uma conexão com o banco de dados
+				Connection connect = DatabaseConnect.getInstance();
+
+				// Cria um prepared statement
+				PreparedStatement statement = (PreparedStatement) connect
+						.prepareStatement("INSERT INTO Produto (nomeProduto, codigoBarras, descricao, qtd, precoVenda) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+
+				// Realiza o bind dos valores
+				statement.setString(1, this.nomeProduto);
+				statement.setString(2, this.codigoBarras);
+				statement.setString(3, this.descricao);
+				statement.setInt(4, this.qtd);
+				statement.setBigDecimal(5, this.precoVenda);
+				
+				// Executa o SQL
+				int ret = statement.executeUpdate();
+
+				// Retorna resultado
+				if (ret == 1) {
+					//Define o id a classe
+					ResultSet id = statement.getGeneratedKeys();
+					while(id.next())
+						setIdProduto(id.getInt(1));
+					
+					// Encerra conexao
+					connect.close();
+					return true;
+				} else {
+					// Encerra conexao
+					connect.close();
+					return false;
+				}
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException("Um erro ocorreu ao criar o produto");
 		}
 	}
 	
+	private Boolean haveCodigoBarras(String codigoBarras) {
+		try{
+			// Obtem uma conexão com o banco de dados
+			Connection connect = DatabaseConnect.getInstance();
+			
+			// Cria um statement
+			PreparedStatement statement = (PreparedStatement) connect
+					.prepareStatement("SELECT * FROM Produto WHERE codigoBarras = ?");
+			
+			statement.setString(1, codigoBarras);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			if (resultSet.next()) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("Um erro ocorreu");
+		}
+	}
+	
+	public static Produto getByCodigoBarras(String codigoBarras) {
+		try{
+			// Obtem uma conexão com o banco de dados
+			Connection connect = DatabaseConnect.getInstance();
+			
+			// Cria um statement
+			PreparedStatement statement = (PreparedStatement) connect
+					.prepareStatement("SELECT * FROM Produto WHERE codigoBarras = ?");
+			
+			statement.setString(1, codigoBarras);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			if (resultSet.next()) {
+				Produto p = new Produto(resultSet.getInt("idProduto"), 
+						resultSet.getString("nomeProduto"), 
+						resultSet.getString("codigoBarras"),
+						resultSet.getString("descricao"), 
+						resultSet.getInt("qtd"), 
+						resultSet.getBigDecimal("precoVenda"));
+				
+				return p;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("Um erro ocorreu");
+		}
+	}
+
 	public static ArrayList<Produto> getAll() {
 		try{
 			// Obtem uma conexão com o banco de dados
@@ -171,6 +229,46 @@ public class Produto {
 			
 			// Executa um SQL
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM Produto");
+			
+			ArrayList<Produto> produtoReturn = new ArrayList<Produto>();
+			while(resultSet.next()) {
+				// Cria um cliente com os dados do BD
+				Produto p = new Produto(resultSet.getInt("idProduto"), 
+										resultSet.getString("nomeProduto"), 
+										resultSet.getString("codigoBarras"),
+										resultSet.getString("descricao"), 
+										resultSet.getInt("qtd"), 
+										resultSet.getBigDecimal("precoVenda"));
+				
+				// Adiciona o cliente ao retorno
+				produtoReturn.add(p);
+			}
+			
+			// Retorna os clientes
+			return produtoReturn;
+		} catch (SQLException e) {
+			throw new RuntimeException("Um erro ocorreu");
+		}
+	}
+	
+	public static ArrayList<Produto> getAllWithFilters(String filter) {
+		try{
+			filter = "%" + filter + "%";
+			
+			// Obtem uma conexão com o banco de dados
+			Connection connect = DatabaseConnect.getInstance();
+			
+			// Cria um statement
+			PreparedStatement statement = (PreparedStatement) connect
+					.prepareStatement("SELECT * FROM Produto WHERE "
+					+ "codigoBarras LIKE ? OR "
+					+ "nomeProduto LIKE ?");
+			
+			statement.setString(1, "%"+ filter +"%");
+			statement.setString(2, "%"+ filter +"%");
+			
+			// Executa SQL
+			ResultSet resultSet = statement.executeQuery();
 			
 			ArrayList<Produto> produtoReturn = new ArrayList<Produto>();
 			while(resultSet.next()) {

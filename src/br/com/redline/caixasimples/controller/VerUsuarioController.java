@@ -45,7 +45,7 @@ public class VerUsuarioController implements Initializable {
 		Alert a = new Alert(AlertType.CONFIRMATION);
         a.setTitle("Remoção de usuário");
         a.setHeaderText(null);
-        a.setContentText("Você tem certeza que deseja remover o cliente " + remover.getNome());
+        a.setContentText("Você tem certeza que deseja remover o cliente " + remover.getNome()+"?");
         
         // Obtem a resposta do usuario
         Optional<ButtonType> resultado = a.showAndWait();
