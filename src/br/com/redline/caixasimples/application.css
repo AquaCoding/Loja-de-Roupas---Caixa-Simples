@@ -39,14 +39,14 @@ Button:hover {
 	-fx-cursor: hand;
 }
 
-TextField, PasswordField {
+TextField, PasswordField, TextArea {
 	-fx-border-color: #CCCCCC;
 	-fx-background-color: #FFFFFF; 
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 5, 4, 3;
 }
 
-TextField:focused, PasswordField:focused {
+TextField:focused, PasswordField:focused, TextArea:focused {
 	-fx-background-color: none;
     -fx-background-insets: -0.4, 1, 2;
     -fx-background-radius: 3.4, 2, 2;

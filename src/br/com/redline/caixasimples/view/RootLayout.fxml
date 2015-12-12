@@ -26,7 +26,7 @@
           <Menu fx:id="mProdutos" mnemonicParsing="false" text="Produtos">
                <items>
                   <MenuItem fx:id="mNovoEstoque" mnemonicParsing="false" onAction="#novoEstoqueClick" text="Nova entrada no estoque" />
-                  <MenuItem fx:id="mVerTodosPrdutos" mnemonicParsing="false" onAction="#verTodosProdutosClick" text="VerTodos" />
+                  <MenuItem fx:id="mVerTodosPrdutos" mnemonicParsing="false" onAction="#verTodosProdutosClick" text="Ver todos" />
                </items></Menu>
             <Menu fx:id="mSobre" mnemonicParsing="false" text="Sobre" />
         </menus>

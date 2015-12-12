@@ -16,8 +16,9 @@ public class Produto {
 	private String nomeProduto;
 	private String codigoBarras;
 	private String descricao;
+	private String fornecedor;
 	private int qtd;
-	private BigDecimal precoVenda;
+	private BigDecimal precoVenda, precoCusto;
 
 	// Gets
 	public int getIdProduto() {
@@ -78,6 +79,18 @@ public class Produto {
 			throw new RuntimeException("O valor de preço de venda é inválido");
 		this.precoVenda = precoVenda;
 	}
+	
+	public void setPrecoCusto(BigDecimal precoVenda) {
+		if(precoVenda.signum() == -1)
+			throw new RuntimeException("O valor de preço de venda é inválido");
+		this.precoCusto = precoVenda;
+	}
+	
+	public void setFornecedor(String fornecedor) {
+		if (!fornecedor.matches("^[a-zA-Zà-úÀ-Ú ]{3,45}$"))
+			throw new RuntimeException("O valor de fornecedor é inválido");
+		this.fornecedor = fornecedor;
+	}
 
 	public Produto(String nomeProduto, String codigoBarras, String descricao,
 			int qtd, BigDecimal precoVenda) {
@@ -86,6 +99,17 @@ public class Produto {
 		setDescricao(descricao);
 		setQtd(qtd);
 		setPrecoVenda(precoVenda);
+	}
+	
+	public Produto(String nomeProduto, String codigoBarras, String descricao,
+			int qtd, BigDecimal precoVenda, BigDecimal custo, String forncedor) {
+		setCodigoBarras(codigoBarras);
+		setQtd(qtd);
+		setPrecoCusto(custo);
+		setFornecedor(forncedor);
+		setNomeProduto(nomeProduto);
+		setPrecoVenda(precoVenda);
+		setDescricao(descricao);
 	}
 
 	public Produto(int idProduto, String nomeProduto, String codigoBarras, String descricao,
@@ -133,7 +157,7 @@ public class Produto {
 				return false;
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("Um erro ocorreu ao criar o cliente");
+			throw new RuntimeException("Um erro ocorreu ao criar o produto");
 		}
 	}
 	
@@ -200,7 +224,7 @@ public class Produto {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new RuntimeException("Um erro ocorreu ao atualizar o cliente");
+			throw new RuntimeException("Um erro ocorreu ao atualizar o produto");
 		}
 	}
 	
@@ -230,7 +254,7 @@ public class Produto {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new RuntimeException("Um erro ocorreu ao deletar o cliente");
+			throw new RuntimeException("Um erro ocorreu ao deletar o produto");
 		}
 	}
 	
@@ -240,6 +264,45 @@ public class Produto {
 			return update();
 		} else {
 			throw new RuntimeException("Não é possivel vender mais do que existe em estoque - Estoque = " + this.qtd);
+		}
+	}
+
+	public boolean createEntradaEstoque() {
+		try {
+			// Obtem uma conexão com o banco de dados
+			Connection connect = DatabaseConnect.getInstance();
+
+			// Cria um prepared statement
+			PreparedStatement statement = (PreparedStatement) connect
+					.prepareStatement("INSERT INTO entradaestoque (idProduto, dataEntrada, qtd, precoEntrada, fornecedor) VALUES (?, NOW(), ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+
+			// Realiza o bind dos valores
+			statement.setInt(1, this.idProduto);
+			statement.setInt(2, this.qtd);
+			statement.setBigDecimal(3, this.precoCusto);
+			statement.setString(4, this.fornecedor);
+			
+			// Executa o SQL
+			int ret = statement.executeUpdate();
+
+			// Retorna resultado
+			if (ret == 1) {
+				//Define o id a classe
+				ResultSet id = statement.getGeneratedKeys();
+				while(id.next())
+					setIdProduto(id.getInt(1));
+				
+				// Encerra conexao
+				connect.close();
+				return true;
+			} else {
+				// Encerra conexao
+				connect.close();
+				return false;
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new RuntimeException("Um erro ocorreu ao criar a entrada de estoque");
 		}
 	}
 }
