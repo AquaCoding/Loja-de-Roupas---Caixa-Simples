@@ -2,18 +2,24 @@ package br.com.redline.caixasimples.controller;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import br.com.redline.caixasimples.Main;
+import br.com.redline.caixasimples.model.EntradaProduto;
 import br.com.redline.caixasimples.model.Produto;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 
 public class EditarQuantidadeProdutoController implements Initializable {
@@ -27,7 +33,14 @@ public class EditarQuantidadeProdutoController implements Initializable {
 	@FXML
 	private Label lbNome, lbDescricao, lbQuantidadeAtual, lbQuantidadeNova;
 	
+	@FXML
+	private TableView<EntradaProduto> tEntradas;
+	
+	@FXML
+	private TableColumn<EntradaProduto, String> tcData, tcFornecedor, tcQuantidade, tcCusto;
+	
 	private Produto p;
+	private ArrayList<EntradaProduto> entradas;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -84,8 +97,15 @@ public class EditarQuantidadeProdutoController implements Initializable {
 			lbDescricao.setText(p.getDescricao());
 			lbQuantidadeAtual.setText(""+p.getQtd());
 			updateQuantidade();
+			loadContent(tfCodigo.getText());
+			setTable();
 		} else {
 			disableElements(true);
+			loadContent(null);
+			lbNome.setText("");
+			lbDescricao.setText("");
+			lbQuantidadeAtual.setText("");
+			lbQuantidadeNova.setText("");
 		}
 	}
 	
@@ -138,5 +158,18 @@ public class EditarQuantidadeProdutoController implements Initializable {
 		tfCusto.setDisable(isDisable);
 		tfFornecedor.setDisable(isDisable);
 		bAdicionar.setDisable(isDisable);
+	}
+	
+	private void loadContent(String codigoBarras) {
+		entradas = Produto.getAllEntradasByCodigoBarras(codigoBarras);
+		
+		tEntradas.setItems(FXCollections.observableArrayList(entradas));
+	}
+	
+	private void setTable() {
+		tcData.setCellValueFactory(new PropertyValueFactory<>("data"));
+		tcFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+		tcQuantidade.setCellValueFactory(new PropertyValueFactory<>("qtd"));
+		tcCusto.setCellValueFactory(new PropertyValueFactory<>("precoEntrada"));
 	}
 }

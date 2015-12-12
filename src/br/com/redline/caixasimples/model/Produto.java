@@ -403,4 +403,43 @@ public class Produto {
 			throw new RuntimeException("Um erro ocorreu ao criar a entrada de estoque");
 		}
 	}
+
+	public static ArrayList<EntradaProduto> getAllEntradasByCodigoBarras(String codigoBarras) {
+		try{
+			ArrayList<EntradaProduto> entradaReturn = new ArrayList<EntradaProduto>();
+			
+			if(codigoBarras != null) {
+				// Obtem uma conexão com o banco de dados
+				Connection connect = DatabaseConnect.getInstance();
+				
+				// Cria um statement
+				PreparedStatement statement = (PreparedStatement) connect
+						.prepareStatement("SELECT * FROM EntradaEstoque WHERE idProduto = ?");
+				
+				Produto p = getByCodigoBarras(codigoBarras);
+				statement.setInt(1, p.getIdProduto());
+				
+				// Executa query
+				ResultSet resultSet = statement.executeQuery();
+				
+				
+				while(resultSet.next()) {
+					EntradaProduto e = new EntradaProduto(resultSet.getInt("idEntrada"), 
+															resultSet.getInt("idProduto"), 
+															resultSet.getDate("dataEntrada"), 
+															resultSet.getInt("qtd"), 
+															resultSet.getBigDecimal("precoEntrada"), 
+															resultSet.getString("fornecedor"));
+					
+					// Adiciona o cliente ao retorno
+					entradaReturn.add(e);
+				}
+			}
+			
+			// Retorna os clientes
+			return entradaReturn;
+		} catch (SQLException e) {
+			throw new RuntimeException("Um erro ocorreu");
+		}
+	}
 }
