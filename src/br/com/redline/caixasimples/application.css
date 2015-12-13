@@ -39,11 +39,12 @@ Button:hover {
 	-fx-cursor: hand;
 }
 
-TextField, PasswordField, TextArea {
+TextField, PasswordField, TextArea, TextField:disabled  {
 	-fx-border-color: #CCCCCC;
 	-fx-background-color: #FFFFFF; 
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 5, 4, 3;
+    -fx-opacity: 1.0;
 }
 
 TextField:focused, PasswordField:focused, TextArea:focused {
