@@ -219,6 +219,42 @@ public class CaixaController implements Initializable {
 		}
 	}
 	
+	@FXML
+	public void finalizarVenda() {
+		if(venda != null && venda.size() > 0)
+			try {
+				if(Produto.vender(venda)) {
+					// Cria uma noticação
+					Alert a = new Alert(AlertType.INFORMATION);
+			        a.setTitle("Caixa - Venda");
+			        a.setHeaderText("Troco = R$" + tfTroco.getText());
+			        a.setContentText("Venda realizada com sucesso");
+			        
+			        // Limpa os campos
+			        tfDescontoVenda.setText("0");
+			        tfValorPagamento.setText("0");
+			        tfTroco.setText("0");
+			        venda.clear();
+			        tbVenda.setItems(FXCollections.observableArrayList(venda));
+					tbVenda.refresh();
+			        updateTotal();
+			        
+			        // Atualiza a lista de produtos do caixa
+			        
+			        loadContent();
+			        
+			        // Exibe a notifição
+			        a.showAndWait();
+				}
+			} catch (Exception e) {
+				Alert a = new Alert(AlertType.INFORMATION);
+				a.setTitle("Caixa - Venda");
+		        a.setHeaderText(null);
+		        a.setContentText(e.getMessage());
+		        a.showAndWait();
+			}
+	}
+	
 	private void loadContent() {
 		produtos = Produto.getAll();
 		tbCaixa.setItems(FXCollections.observableArrayList(produtos));

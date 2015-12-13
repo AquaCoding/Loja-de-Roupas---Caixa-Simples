@@ -68,7 +68,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button fx:id="bFinalizar" focusTraversable="false" layoutX="699.0" layoutY="337.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="102.0" scaleShape="false" text="Finalizar" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+                  <Button fx:id="bFinalizar" focusTraversable="false" layoutX="699.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#finalizarVenda" prefHeight="17.0" prefWidth="102.0" scaleShape="false" text="Finalizar" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
                   <Group layoutY="22.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0">
                      <children>
                         <Label fx:id="lbDescontoVenda" layoutX="14.0" layoutY="240.0" text="Desconto na venda (R$)" AnchorPane.bottomAnchor="101.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="682.0" AnchorPane.topAnchor="240.0" />

@@ -351,17 +351,116 @@ public class Produto {
 				return false;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new RuntimeException("Um erro ocorreu ao deletar o produto");
 		}
 	}
 	
-	public boolean vender(int qtd) {
-		if(this.qtd - qtd >= 0) {
-			setQtd(this.qtd - qtd);
-			return update();
+	public static boolean vender(ArrayList<Produto> venda) throws SQLException {
+		// Obtem uma conexão com o banco de dados
+		Connection connect = DatabaseConnect.getInstance();
+		
+		// Realiza a transaction de todos os itens vendas
+		try {
+			// Ativa a transaction
+			connect.setAutoCommit(false);
+			
+			// Cria o registro da venda
+			// Cria um prepared statement
+			PreparedStatement statement;
+					
+			// Cria o registro da venda
+			statement = (PreparedStatement) connect
+					.prepareStatement("INSERT INTO Venda (dataVenda) VALUES (NOW())", Statement.RETURN_GENERATED_KEYS);
+			
+			// Executa o SQL
+			int ret = statement.executeUpdate();
+			ResultSet idReturn = statement.getGeneratedKeys();
+			
+			if (ret == 1 && idReturn.next()) {
+				// Obtem o id da venda
+				int id = idReturn.getInt(1);
+				
+				// Percorre todos os produtos, realizando a venda
+				for(Produto p : venda) {
+					if(!Produto.registraVenda(p, connect, id)){
+						throw new RuntimeException("Um erro ocorreu ao realizar a venda");
+					}
+				}
+			} else {
+				throw new RuntimeException();
+			}
+			
+			// Finaliza a transacition
+			connect.commit();
+						
+			// Retorna sucesso
+			return true;
+		} catch (SQLException e) {
+			// Desfaz as modificações no BD
+			connect.rollback();
+						
+			// Retorna erro
+			throw new RuntimeException("Um erro ocorreu ao realizar a venda");
+		} finally {
+			// Encerra conexão com BD
+			connect.close();
+		}
+	}
+	
+	private static boolean registraVenda(Produto itemVenda, Connection connect, int idVenda) {
+		try {			
+			// Cria um prepared statement
+			PreparedStatement statement;
+						
+			// Registra um item venda
+			statement = (PreparedStatement) connect.prepareStatement("INSERT INTO VendaItem (idVenda, idProduto, qtd, precoVenda) VALUES (?, ?, ?, ?)");
+			statement.setInt(1, idVenda);
+			statement.setInt(2, itemVenda.getIdProduto());
+			statement.setInt(3, itemVenda.getQtd());
+			statement.setBigDecimal(4, new BigDecimal(itemVenda.getPrecoVenda()));
+			
+			// Executa o registro do item venda
+			int ret = statement.executeUpdate();
+			
+			// Verifica o resultado
+			if(ret == 1) {
+				// Atualiza estoque e retorna o resultado
+				return baixaEstoque(itemVenda, connect);
+			} else {
+				// Erro em item venda
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Um erro ocorreu a realizar uma venda");
+		}
+	}
+	
+	public static boolean baixaEstoque(Produto itemVenda, Connection connect) {
+		Produto p = Produto.getByCodigoBarras(itemVenda.getCodigoBarras());
+
+		if(p.getQtd() >= itemVenda.getQtd()) {
+			// Registra um item venda
+			try {
+				// Cria um prepared statement
+				PreparedStatement statement;
+				statement = (PreparedStatement) connect.prepareStatement("UPDATE Produto SET qtd = ? WHERE idProduto = ?");
+				statement.setInt(1, p.getQtd() - itemVenda.getQtd());
+				statement.setInt(2, p.getIdProduto());
+				
+				int ret = statement.executeUpdate();
+				
+				// Verifica o resultado
+				if(ret == 1) {
+					return true;
+				} else {
+					return false;
+				}
+			} catch (SQLException e) {
+				throw new RuntimeException("Um erro ocorreu a dar baixa no estoque");
+			}
 		} else {
-			throw new RuntimeException("Não é possivel vender mais do que existe em estoque - Estoque = " + this.qtd);
+			return false;
 		}
 	}
 
