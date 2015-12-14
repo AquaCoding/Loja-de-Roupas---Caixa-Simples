@@ -2,18 +2,26 @@ package br.com.redline.caixasimples.controller;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import br.com.redline.caixasimples.Main;
 import br.com.redline.caixasimples.model.EntradaProduto;
 import br.com.redline.caixasimples.model.Produto;
+import javafx.collections.FXCollections;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TextFormatter;
 import javafx.util.StringConverter;
 
@@ -26,6 +34,17 @@ public class NovoProdutoController implements Initializable {
 	
 	@FXML
 	private TableView<EntradaProduto> tvEntradaEstoque;
+	
+	@FXML
+	private TableColumn<EntradaProduto, String> tcData, tcFornecedor, tcQuantidade, tcCusto;
+			
+	@FXML
+	private Button bAdicionar;
+	
+	@FXML
+	private Label lQuantidade, lCusto, lFornecedor;
+	
+	private ArrayList<EntradaProduto> entradas;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -104,5 +123,84 @@ public class NovoProdutoController implements Initializable {
 	        a.setContentText(message);
 	        a.showAndWait();
 		}
+	}
+	
+	public void setProduto(Produto produto) {
+		// Desativa campos não modificaveis
+		tfCodigo.setDisable(true);
+		tfQuantidade.setDisable(true);
+		
+		// Oculta os campos não utilizados
+		lFornecedor.setVisible(false);
+		tfFornecedor.setDisable(true);
+		tfFornecedor.setVisible(false);
+		lCusto.setVisible(false);
+		tfCusto.setDisable(true);
+		tfCusto.setVisible(false);
+		
+		// Define os campos
+		tfCodigo.setText(produto.getCodigoBarras());
+		tfQuantidade.setText(""+produto.getQtd());
+		tfNome.setText(produto.getNomeProduto());
+		tfPreco.setText(produto.getPrecoVenda());
+		taDescricao.setText(produto.getDescricao());
+		
+		// Exibe a tabela de entradas desse produto
+		tvEntradaEstoque.setVisible(true);
+		
+		loadContent(produto.getCodigoBarras());
+		setTable();
+		
+		// Altera os labels
+		lQuantidade.setText("Estoque");
+		bAdicionar.setText("Atualizar");
+		
+		// Define a função de editar
+		bAdicionar.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				try {
+					if(!tfPreco.getText().equals("")) {
+						produto.setNomeProduto(tfNome.getText());
+						produto.setPrecoVenda(new BigDecimal(tfPreco.getText()));
+						produto.setDescricao(taDescricao.getText());
+						
+						if(produto.update()) {
+							Alert a = new Alert(AlertType.INFORMATION);
+					        a.setTitle("Produto atualiazado com sucesso");
+					        a.setHeaderText(null);
+					        a.setContentText("Um produto foi atualizado com sucesso");
+					        a.showAndWait();
+					        
+					        Main.showViewCaixa();
+						}
+					}
+				} catch (Exception e) {
+					String message;
+					if(e.getMessage() == null) {
+						message = "Preço precisa ser um número";
+					} else {
+						message = e.getMessage();
+					}
+					Alert a = new Alert(AlertType.INFORMATION);
+			        a.setTitle("Um erro ocorreu ao criar o produto");
+			        a.setHeaderText(null);
+			        a.setContentText(message);
+			        a.showAndWait();
+				}
+			}
+		});
+	}
+	
+	private void loadContent(String codigoBarras) {
+		entradas = Produto.getAllEntradasByCodigoBarras(codigoBarras);
+		tvEntradaEstoque.setItems(FXCollections.observableArrayList(entradas));
+	}
+	
+	private void setTable() {
+		tcData.setCellValueFactory(new PropertyValueFactory<>("data"));
+		tcFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+		tcQuantidade.setCellValueFactory(new PropertyValueFactory<>("qtd"));
+		tcCusto.setCellValueFactory(new PropertyValueFactory<>("precoEntrada"));
 	}
 }

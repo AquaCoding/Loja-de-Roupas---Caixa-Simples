@@ -1,9 +1,12 @@
 package br.com.redline.caixasimples;
 
 import java.io.IOException;
+
 import br.com.redline.caixasimples.controller.CriarClienteController;
 import br.com.redline.caixasimples.controller.CriarUsuarioController;
+import br.com.redline.caixasimples.controller.NovoProdutoController;
 import br.com.redline.caixasimples.model.Cliente;
+import br.com.redline.caixasimples.model.Produto;
 import br.com.redline.caixasimples.model.Usuario;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -212,6 +215,25 @@ public class Main extends Application {
 			if(usuario != null) {
 				CriarUsuarioController controller = loader.getController();
 				controller.setUsuario(usuario);
+			}
+			
+			rootLayout.setCenter(personOverview);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// Carrega a view 'NovoProduto' dentro do RootLayout
+	public static void showViewNovoProduto(Produto produto) {
+		try {
+			primaryStage.setTitle(pageTitle + " - Edição de produto");
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/NovoProduto.fxml"));
+			AnchorPane personOverview = (AnchorPane) loader.load();
+			
+			if(produto != null) {
+				NovoProdutoController controller = loader.getController();
+				controller.setProduto(produto);
 			}
 			
 			rootLayout.setCenter(personOverview);

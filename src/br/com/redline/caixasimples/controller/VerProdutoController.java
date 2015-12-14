@@ -70,6 +70,11 @@ public class VerProdutoController implements Initializable {
             b.showAndWait();
         }
 	}
+	
+	@FXML
+	public void editar() {
+		Main.showViewNovoProduto(tProduto.getSelectionModel().getSelectedItem());
+	}
 
 	private void loadContent() {
 		produtos = Produto.getAll();

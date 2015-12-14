@@ -162,7 +162,6 @@ public class EditarQuantidadeProdutoController implements Initializable {
 	
 	private void loadContent(String codigoBarras) {
 		entradas = Produto.getAllEntradasByCodigoBarras(codigoBarras);
-		
 		tEntradas.setItems(FXCollections.observableArrayList(entradas));
 	}
 	
