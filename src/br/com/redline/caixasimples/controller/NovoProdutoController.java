@@ -5,10 +5,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.redline.caixasimples.Main;
+import br.com.redline.caixasimples.model.EntradaProduto;
 import br.com.redline.caixasimples.model.Produto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -21,6 +23,9 @@ public class NovoProdutoController implements Initializable {
 	
 	@FXML
 	private TextArea taDescricao;
+	
+	@FXML
+	private TableView<EntradaProduto> tvEntradaEstoque;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -64,6 +69,7 @@ public class NovoProdutoController implements Initializable {
 		tfQuantidade.setTextFormatter(new TextFormatter<Integer>(intFormatter));
 		tfCusto.setTextFormatter(new TextFormatter<BigDecimal>(bigDecimalFormatter));
 		tfPreco.setTextFormatter(new TextFormatter<BigDecimal>(bigDecimalFormatter));
+		tvEntradaEstoque.setVisible(false);
 	}
 	
 	@FXML
