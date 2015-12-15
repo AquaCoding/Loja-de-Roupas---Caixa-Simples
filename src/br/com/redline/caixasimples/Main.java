@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -37,6 +38,7 @@ public class Main extends Application {
 		primaryStage.setFullScreenExitHint("");
 		primaryStage.setFullScreenExitKeyCombination(new KeyCodeCombination(
 				KeyCode.E, KeyCombination.CONTROL_DOWN));
+		primaryStage.getIcons().add(new Image(""+Main.class.getResource("icon.png")));
 
 		// Defini titulo
 		primaryStage.setTitle(pageTitle);
@@ -64,6 +66,7 @@ public class Main extends Application {
 				scene.getStylesheets().add(""+Main.class.getResource("application.css"));
 				loginStage.setTitle(pageTitle + " - Entrar");
 				loginStage.setScene(scene);
+				loginStage.getIcons().add(new Image(""+Main.class.getResource("icon.png")));
 				loginStage.show();
 			}
 			

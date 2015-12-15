@@ -48,11 +48,11 @@ public class RootLayoutController {
 	
 	@FXML
 	public void obterAjuda() {
-		CustomAlert.showAlert("Ajuda", "Nós contate com seu problema pelo e-mail: suporte@redline.com.br", AlertType.INFORMATION);
+		CustomAlert.showAlertWithCustomImage("Ajuda", "Nós contate com seu problema pelo e-mail: suporte@redline.com.br", AlertType.INFORMATION, "redline.png");
 	}
 	
 	@FXML
 	public void sobre() {
-		CustomAlert.showAlert("Ajuda", "Desenvolvido por RedLine\nVersão: 1.0", AlertType.INFORMATION);
+		CustomAlert.showAlertWithCustomImage("Ajuda", "Desenvolvido por RedLine\nVersão: 1.0", AlertType.INFORMATION, "redline.png");
 	} 
 }

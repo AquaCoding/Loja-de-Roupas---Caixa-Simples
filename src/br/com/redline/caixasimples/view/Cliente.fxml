@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="474.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.redline.caixasimples.controller.VerClienteController">
    <children>
-      <TableView fx:id="tCliente" editable="true" layoutX="4.0" layoutY="89.0" prefHeight="310.0" prefWidth="688.0" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="89.0">
+      <TableView fx:id="tCliente" editable="true" layoutX="4.0" layoutY="89.0" prefHeight="310.0" prefWidth="688.0" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="89.0">
         <columns>
           <TableColumn fx:id="tcNome" prefWidth="75.0" text="Nome" />
           <TableColumn fx:id="tcSobrenome" prefWidth="75.0" text="Sobrenome" />
@@ -22,7 +22,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <VBox layoutX="14.0" layoutY="6.0">
+      <VBox layoutX="14.0" layoutY="7.0">
          <children>
             <Label layoutX="14.0" layoutY="6.0" text="Clientes">
                <font>
