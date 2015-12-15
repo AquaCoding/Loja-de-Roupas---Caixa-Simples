@@ -1,4 +1,4 @@
-AnchorPane {
+AnchorPane, Pane, DialogPane {
 	-fx-background-color:#FFFFFF;
 }
 MenuBar, .menu, .menu-item {

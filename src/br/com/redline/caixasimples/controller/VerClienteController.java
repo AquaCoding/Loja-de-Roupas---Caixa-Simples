@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
@@ -17,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import br.com.redline.caixasimples.Main;
 import br.com.redline.caixasimples.model.Cliente;
+import br.com.redline.caixasimples.util.CustomAlert;
 
 public class VerClienteController implements Initializable {
 	
@@ -76,24 +76,12 @@ public class VerClienteController implements Initializable {
 	public void remover() {
 		Cliente remover = tCliente.getSelectionModel().getSelectedItem();
 		
-		// Cria um alert de confirmação
-		Alert a = new Alert(AlertType.CONFIRMATION);
-        a.setTitle("Remoção de cliente");
-        a.setHeaderText(null);
-        a.setContentText("Você tem certeza que deseja remover o cliente " + remover.getNome() + " " + remover.getSobrenome()+"?");
-        
-        // Obtem a resposta do usuario
-        Optional<ButtonType> resultado = a.showAndWait();
+		// Cria um alert de confirmação e obtem a resposta do usuario
+        Optional<ButtonType> resultado = CustomAlert.showAlert("Cliente - Remover", "Você tem certeza que deseja remover o cliente " + remover.getNome() + " " + remover.getSobrenome()+"?", AlertType.CONFIRMATION);
         if ((resultado.isPresent()) && (resultado.get() == ButtonType.OK)) {
         	remover.delete();
         	loadContent();
-        	
-        	Alert b = new Alert(AlertType.INFORMATION);
-            b.setTitle("Remoção de cliente");
-            b.setHeaderText(null);
-            b.setContentText("O cliente foi removido com sucesso");
-            b.showAndWait();
-            
+        	CustomAlert.showAlert("Cliente - Remover", "Um cliente foi removido com sucesso", AlertType.INFORMATION);
         }
 	}
 	

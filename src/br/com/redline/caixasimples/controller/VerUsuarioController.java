@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -16,6 +15,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import br.com.redline.caixasimples.Main;
 import br.com.redline.caixasimples.model.Usuario;
+import br.com.redline.caixasimples.util.CustomAlert;
 
 public class VerUsuarioController implements Initializable {
 
@@ -41,32 +41,18 @@ public class VerUsuarioController implements Initializable {
 	public void remover() {
 		Usuario remover = tUsuario.getSelectionModel().getSelectedItem();
 		
-		// Cria um alert de confirmação
-		Alert a = new Alert(AlertType.CONFIRMATION);
-        a.setTitle("Remoção de usuário");
-        a.setHeaderText(null);
-        a.setContentText("Você tem certeza que deseja remover o cliente " + remover.getNome()+"?");
-        
-        // Obtem a resposta do usuario
-        Optional<ButtonType> resultado = a.showAndWait();
+		// Cria um alert de confirmação e obtem a resposta do usuario
+        Optional<ButtonType> resultado = CustomAlert.showAlert("Usuário - Remover", "Você tem certeza que deseja remover o cliente " + remover.getNome()+"?", AlertType.CONFIRMATION);
         if ((resultado.isPresent()) && (resultado.get() == ButtonType.OK)) {
         	try {
         		if(remover.delete()) {
         			loadContent();
-        			showAlert("Remoção de usuário", "O usuário selecionado foi removido com sucesso");
+        			CustomAlert.showAlert("Usuário - Remover", "Um usuário foi removido com sucesso", AlertType.INFORMATION);
         		}
         	} catch(RuntimeException e ) {
-        		showAlert("Um erro ocorreu", e.getMessage());
+        		CustomAlert.showAlert("Usuário - Remover",e.getMessage(), AlertType.INFORMATION);
         	}            
         }
-	}
-	
-	private void showAlert(String title, String content) {
-		Alert b = new Alert(AlertType.INFORMATION);
-        b.setTitle(title);
-        b.setHeaderText(null);
-        b.setContentText(content);
-        b.showAndWait();
 	}
 
 	@Override

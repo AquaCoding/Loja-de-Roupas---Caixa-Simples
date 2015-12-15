@@ -8,10 +8,10 @@ import java.util.ResourceBundle;
 import br.com.redline.caixasimples.Main;
 import br.com.redline.caixasimples.model.EntradaProduto;
 import br.com.redline.caixasimples.model.Produto;
+import br.com.redline.caixasimples.util.CustomAlert;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -134,22 +134,13 @@ public class EditarQuantidadeProdutoController implements Initializable {
 					tfQuantidade.setText("0");
 					updateQuantidade();
 					
-					Alert a = new Alert(AlertType.INFORMATION);
-			        a.setTitle("Nova entrada em estoque");
-			        a.setHeaderText(null);
-			        a.setContentText("Uma nova entrada em estoque foi cadastrada com sucesso");
-			        a.showAndWait();
-			        
+					CustomAlert.showAlert("Estoque - Entrada", "Uma nova entrada em estoque foi cadastrada com sucesso", AlertType.INFORMATION);			        
 			        Main.showViewCaixa();
 				}
 			}
 			
 		} catch (RuntimeException e) {
-			Alert a = new Alert(AlertType.INFORMATION);
-	        a.setTitle("Erro ao realizar entrada no estoque");
-	        a.setHeaderText(null);
-	        a.setContentText(e.getMessage());
-	        a.showAndWait();
+			CustomAlert.showAlert("Estoque - Entrada", e.getMessage(), AlertType.INFORMATION);
 		}
 	}
 	

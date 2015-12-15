@@ -1,17 +1,22 @@
 package br.com.redline.caixasimples.controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import br.com.redline.caixasimples.Main;
 import br.com.redline.caixasimples.model.Cliente;
+import br.com.redline.caixasimples.util.CustomAlert;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.StageStyle;
+import javafx.scene.control.TextFormatter;
+import javafx.util.StringConverter;
 
-public class CriarClienteController {
+public class CriarClienteController implements Initializable {
 	
 	private Cliente c;
 	
@@ -24,6 +29,29 @@ public class CriarClienteController {
 	@FXML
 	public void cancelar() {
 		Main.showViewCaixa();
+	}
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		StringConverter<Integer> intFormatter = new StringConverter<Integer>() {
+			@Override
+			public Integer fromString(String string) {
+				if(Integer.parseInt(string) > 0)
+					return Integer.parseInt(string);
+				
+				return 0;
+			}
+
+			@Override
+			public String toString(Integer object) {
+				if(object == null)
+					return "0";
+				
+				return object.toString();
+			}
+	    };
+	    
+	    tfNumero.setTextFormatter(new TextFormatter<Integer>(intFormatter));
 	}
 	
 	public void setCliente(Cliente cliente) {
@@ -57,12 +85,7 @@ public class CriarClienteController {
 					c.setEmail(tfEmail.getText());
 
 					if(c.update()) {
-						Alert a = new Alert(AlertType.INFORMATION);
-			            a.setTitle("Atualização de cliente");
-			            a.setHeaderText(null);
-			            a.setContentText("O cliente " + c.getNome() + " " + c.getSobrenome() + " foi atualizado com sucesso");
-			            a.showAndWait();
-			            
+						CustomAlert.showAlert("Cliente - Atualização", "O cliente " + c.getNome() + " " + c.getSobrenome() + " foi atualizado com sucesso", AlertType.INFORMATION);			            
 			            Main.showClientes();
 					}
 				}
@@ -75,25 +98,14 @@ public class CriarClienteController {
 		if(tfNumero.getText().equals(""))
 			tfNumero.setText("-1");
 		
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.initStyle(StageStyle.UTILITY);
-		alert.setHeaderText(null);
-		
 		try {
 			Cliente c = new Cliente(tfNome.getText(), tfSobrenome.getText(), tfRua.getText(), Integer.parseInt(tfNumero.getText()), tfBairro.getText(), tfTelefone.getText(), tfEmail.getText());
 			c.create();
 			
-			alert.setTitle("Cliente cadastrado com sucesso");
-			alert.setContentText("O cliente " + tfNome.getText() + " foi cadastrado com sucesso");
-			alert.showAndWait();
+			CustomAlert.showAlert("Cliente - Cadastro", "Um cliente foi cadastrado com sucesso", AlertType.INFORMATION);
 			Main.showViewCaixa();
-		} catch (RuntimeException e) {
-			if(e.getMessage().equals("O valor de numero é inválido"))
-				tfNumero.setText("");
-			
-			alert.setTitle("Um erro ocorreu ao criar o cliente");
-			alert.setContentText(e.getMessage());
-			alert.showAndWait();
+		} catch (RuntimeException e) {			
+			CustomAlert.showAlert("Cliente - Cadastro", e.getMessage(), AlertType.INFORMATION);
 		}
-	}
+	}	
 }

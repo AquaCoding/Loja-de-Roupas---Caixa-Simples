@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import br.com.redline.caixasimples.model.Produto;
+import br.com.redline.caixasimples.util.CustomAlert;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -105,11 +105,7 @@ public class CaixaController implements Initializable {
 			
 			// Verifica quantidade de estoque
 			if(Integer.parseInt(tfQuantidade.getText()) > p.getQtd()) {
-				Alert a = new Alert(AlertType.INFORMATION);
-		        a.setTitle("Caixa - Controle de estoque");
-		        a.setHeaderText(null);
-		        a.setContentText("A quantidade informada é maior que a quantidade em estoque.");
-		        a.showAndWait();
+				CustomAlert.showAlert("Caixa - Controle de estoque", "A quantidade informada é maior que a quantidade em estoque", AlertType.INFORMATION);
 			} else {
 				tbVenda.setItems(null);
 				tbVenda.layout();
@@ -225,10 +221,7 @@ public class CaixaController implements Initializable {
 			try {
 				if(Produto.vender(venda)) {
 					// Cria uma noticação
-					Alert a = new Alert(AlertType.INFORMATION);
-			        a.setTitle("Caixa - Venda");
-			        a.setHeaderText("Troco = R$" + tfTroco.getText());
-			        a.setContentText("Venda realizada com sucesso");
+					CustomAlert.showAlert("Caixa - Venda", "Troco R$" + tfTroco.getText(), AlertType.INFORMATION);
 			        
 			        // Limpa os campos
 			        tfDescontoVenda.setText("0");
@@ -240,18 +233,10 @@ public class CaixaController implements Initializable {
 			        updateTotal();
 			        
 			        // Atualiza a lista de produtos do caixa
-			        
 			        loadContent();
-			        
-			        // Exibe a notifição
-			        a.showAndWait();
 				}
 			} catch (Exception e) {
-				Alert a = new Alert(AlertType.INFORMATION);
-				a.setTitle("Caixa - Venda");
-		        a.setHeaderText(null);
-		        a.setContentText(e.getMessage());
-		        a.showAndWait();
+				CustomAlert.showAlert("Caixa - Venda", e.getMessage(), AlertType.INFORMATION);
 			}
 	}
 	

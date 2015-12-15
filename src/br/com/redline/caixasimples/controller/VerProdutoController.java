@@ -4,12 +4,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
 import br.com.redline.caixasimples.Main;
 import br.com.redline.caixasimples.model.Produto;
+import br.com.redline.caixasimples.util.CustomAlert;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -50,24 +51,13 @@ public class VerProdutoController implements Initializable {
 	@FXML
 	public void remover() {
 		Produto remover = tProduto.getSelectionModel().getSelectedItem();
-		
-		// Cria um alert de confirmação
-		Alert a = new Alert(AlertType.CONFIRMATION);
-        a.setTitle("Remoção de produto");
-        a.setHeaderText(null);
-        a.setContentText("Você tem certeza que deseja remover o produto " + remover.getNomeProduto()+"? Isso irá remover todas as entradas relacionadas com ele.");
         
         // Obtem a resposta do usuario
-        Optional<ButtonType> resultado = a.showAndWait();
+        Optional<ButtonType> resultado = CustomAlert.showAlert("Produto - Remover", "Você tem certeza que deseja remover o produto " + remover.getNomeProduto()+"? Isso irá remover todas as entradas e vendas relacionadas com ele", AlertType.CONFIRMATION);
         if ((resultado.isPresent()) && (resultado.get() == ButtonType.OK)) {
         	remover.delete();
         	loadContent();
-        	
-        	Alert b = new Alert(AlertType.INFORMATION);
-            b.setTitle("Remoção de produto");
-            b.setHeaderText(null);
-            b.setContentText("O produto foi removido com sucesso");
-            b.showAndWait();
+        	CustomAlert.showAlert("Produto - Remover", "Um produto foi removido com sucesso", AlertType.INFORMATION);
         }
 	}
 	

@@ -173,7 +173,7 @@ public class Produto {
 			
 			// Cria um statement
 			PreparedStatement statement = (PreparedStatement) connect
-					.prepareStatement("SELECT * FROM Produto WHERE codigoBarras = ?");
+					.prepareStatement("SELECT * FROM Produto WHERE codigoBarras = ? AND ativo = true");
 			
 			statement.setString(1, codigoBarras);
 			
@@ -196,7 +196,7 @@ public class Produto {
 			
 			// Cria um statement
 			PreparedStatement statement = (PreparedStatement) connect
-					.prepareStatement("SELECT * FROM Produto WHERE codigoBarras = ?");
+					.prepareStatement("SELECT * FROM Produto WHERE codigoBarras = ? AND ativo = true");
 			
 			statement.setString(1, codigoBarras);
 			
@@ -228,7 +228,7 @@ public class Produto {
 			Statement statement = connect.createStatement();
 			
 			// Executa um SQL
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM Produto");
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Produto WHERE ativo = true");
 			
 			ArrayList<Produto> produtoReturn = new ArrayList<Produto>();
 			while(resultSet.next()) {
@@ -262,7 +262,7 @@ public class Produto {
 			PreparedStatement statement = (PreparedStatement) connect
 					.prepareStatement("SELECT * FROM Produto WHERE "
 					+ "codigoBarras LIKE ? OR "
-					+ "nomeProduto LIKE ?");
+					+ "nomeProduto LIKE ? AND ativo = true");
 			
 			statement.setString(1, "%"+ filter +"%");
 			statement.setString(2, "%"+ filter +"%");
@@ -333,7 +333,7 @@ public class Produto {
 
 			// Cria um prepared statement
 			PreparedStatement statement = (PreparedStatement) connect
-					.prepareStatement("DELETE FROM Produto WHERE idProduto = ?");
+					.prepareStatement("UPDATE Produto SET ativo = false WHERE idProduto = ?");
 
 			// Realiza o bind dos valores
 			statement.setInt(1, this.idProduto);
@@ -351,6 +351,7 @@ public class Produto {
 				return false;
 			}
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			throw new RuntimeException("Um erro ocorreu ao deletar o produto");
 		}
 	}

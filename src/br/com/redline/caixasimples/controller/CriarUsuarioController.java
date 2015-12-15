@@ -2,10 +2,10 @@ package br.com.redline.caixasimples.controller;
 
 import br.com.redline.caixasimples.Main;
 import br.com.redline.caixasimples.model.Usuario;
+import br.com.redline.caixasimples.util.CustomAlert;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -38,13 +38,13 @@ public class CriarUsuarioController {
 	@FXML
 	public void createUsuario() {
 		if(pfSenha.getText().equals("") || pfConfirmaSenha.getText().equals("") || tfNome.getText().equals("")) {
-			showAlert("Campos obrigatórios", "Todos os campos são obrigatórios");
+			CustomAlert.showAlert("Usuario - Cadastro", "Todos os campos são obrigatórios", AlertType.INFORMATION);
 		} else {
 			if(pfSenha.getText().equals(pfConfirmaSenha.getText())) {
 				try {
 					Usuario u = new Usuario(tfNome.getText(), pfSenha.getText());
 					if(u.create()) {
-						showAlert("Usuário criado", "O usuário foi criado com sucesso");
+						CustomAlert.showAlert("Usuario - Cadastro", "Um usuário foi criado com sucesso", AlertType.INFORMATION);
 						if(closeAfterCreate) {
 							Main.endLoginLayout();
 							Main.initLoginLayout();
@@ -53,10 +53,10 @@ public class CriarUsuarioController {
 						}
 					}
 				} catch (RuntimeException e) {
-					showAlert(e.getMessage(), e.getMessage());
+					CustomAlert.showAlert("Usuario - Cadastro", e.getMessage(), AlertType.INFORMATION);
 				}
 			} else {
-				showAlert("Senhas incorretas", "As senhas informadas não batem");
+				CustomAlert.showAlert("Usuario - Cadastro", "As senhas informadas não batem", AlertType.INFORMATION);
 			}
 		}
 	}
@@ -68,14 +68,6 @@ public class CriarUsuarioController {
 		} else {
 			Main.showViewCaixa();
 		}
-	}
-	
-	private void showAlert(String title, String content) {
-		Alert a = new Alert(AlertType.INFORMATION);
-        a.setTitle(title);
-        a.setHeaderText(null);
-        a.setContentText(content);
-        a.showAndWait();
 	}
 	
 	public void setUsuario(Usuario usuario) {
@@ -108,39 +100,22 @@ public class CriarUsuarioController {
 							if(pfSenha.getText().equals(pfConfirmaSenha.getText())) {
 								u.setSenha(pfSenha.getText());
 							} else {
-								Alert a = new Alert(AlertType.INFORMATION);
-					            a.setTitle("Atualização de usuário");
-					            a.setHeaderText(null);
-					            a.setContentText("A nova senha não coincide com a confirmação");
-					            a.showAndWait();
+								CustomAlert.showAlert("Usuario - Atualização", "As senhas não batem", AlertType.INFORMATION);
 					            update = false;
 							}
 						}
 												
 						// Atualiza o usuario
 						if(update && u.update()) {
-							Alert a = new Alert(AlertType.INFORMATION);
-				            a.setTitle("Atualização de usuário");
-				            a.setHeaderText(null);
-				            a.setContentText("O usuário foi atualizado");
-				            a.showAndWait();
-				            
+							CustomAlert.showAlert("Usuario - Atualização", "Usuário atualizado com sucesso", AlertType.INFORMATION);				            
 				            Main.showUsuarios();
 						}
 					} catch (RuntimeException e) {
-						Alert a = new Alert(AlertType.INFORMATION);
-			            a.setTitle("Atualização de usuário");
-			            a.setHeaderText(null);
-			            a.setContentText(e.getMessage());
-			            a.showAndWait();
+						CustomAlert.showAlert("Usuario - Atualização", e.getMessage(), AlertType.INFORMATION);
 					}
 					
 				} else {
-					Alert a = new Alert(AlertType.INFORMATION);
-		            a.setTitle("Atualização de usuário");
-		            a.setHeaderText(null);
-		            a.setContentText("A senha informada esta incorreta");
-		            a.showAndWait();
+					CustomAlert.showAlert("Usuario - Atualização", "A senha informada está incorreta. Caso esteja modificando sua senha utilize a senha antiga", AlertType.INFORMATION);
 				}
 			}
 		});

@@ -8,12 +8,12 @@ import java.util.ResourceBundle;
 import br.com.redline.caixasimples.Main;
 import br.com.redline.caixasimples.model.EntradaProduto;
 import br.com.redline.caixasimples.model.Produto;
+import br.com.redline.caixasimples.util.CustomAlert;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -99,12 +99,7 @@ public class NovoProdutoController implements Initializable {
 				
 				if(produto.create())
 					if(produto.createEntradaEstoque()) {
-						Alert a = new Alert(AlertType.INFORMATION);
-				        a.setTitle("Produto cadastrado com sucesso");
-				        a.setHeaderText(null);
-				        a.setContentText("Um produto foi cadastrado com sucesso");
-				        a.showAndWait();
-				        
+						CustomAlert.showAlert("Produto - Cadastro", "Um produto foi cadastrado com sucesso", AlertType.INFORMATION);
 				        Main.showViewCaixa();
 					}
 			}
@@ -117,11 +112,7 @@ public class NovoProdutoController implements Initializable {
 			} else {
 				message = e.getMessage();
 			}
-			Alert a = new Alert(AlertType.INFORMATION);
-	        a.setTitle("Um erro ocorreu ao criar o produto");
-	        a.setHeaderText(null);
-	        a.setContentText(message);
-	        a.showAndWait();
+			CustomAlert.showAlert("Produto - Cadastro", message, AlertType.INFORMATION);
 		}
 	}
 	
@@ -166,12 +157,7 @@ public class NovoProdutoController implements Initializable {
 						produto.setDescricao(taDescricao.getText());
 						
 						if(produto.update()) {
-							Alert a = new Alert(AlertType.INFORMATION);
-					        a.setTitle("Produto atualiazado com sucesso");
-					        a.setHeaderText(null);
-					        a.setContentText("Um produto foi atualizado com sucesso");
-					        a.showAndWait();
-					        
+							CustomAlert.showAlert("Produto - Atualização", "Um produto foi atualizado com sucesso", AlertType.INFORMATION);					        
 					        Main.showViewCaixa();
 						}
 					}
@@ -182,11 +168,7 @@ public class NovoProdutoController implements Initializable {
 					} else {
 						message = e.getMessage();
 					}
-					Alert a = new Alert(AlertType.INFORMATION);
-			        a.setTitle("Um erro ocorreu ao criar o produto");
-			        a.setHeaderText(null);
-			        a.setContentText(message);
-			        a.showAndWait();
+					CustomAlert.showAlert("Produto - Atualização", message, AlertType.INFORMATION);
 				}
 			}
 		});

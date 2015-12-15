@@ -8,13 +8,13 @@ import br.com.redline.caixasimples.controller.NovoProdutoController;
 import br.com.redline.caixasimples.model.Cliente;
 import br.com.redline.caixasimples.model.Produto;
 import br.com.redline.caixasimples.model.Usuario;
+import br.com.redline.caixasimples.util.CustomAlert;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -54,11 +54,7 @@ public class Main extends Application {
 			}
 			
 			if(!Usuario.haveUsuario()) {
-				Alert a = new Alert(AlertType.INFORMATION);
-	            a.setTitle("Primeiro acesso");
-	            a.setHeaderText(null);
-	            a.setContentText("É preciso criar um usuario");
-	            a.showAndWait();
+				CustomAlert.showAlert("Primeiro acesso", "É preciso criar um usuário", AlertType.INFORMATION);
 	            initPrimeiroAcesso();
 			} else {
 				// Carrega o root layout do arquivo fxml.
@@ -90,11 +86,13 @@ public class Main extends Application {
 			
 			Parent root = loader.load();
 			
+			
 			CriarUsuarioController controller = loader.getController();
 			controller.setCloseAfterCreate(true);
 			
-			Scene scene = new Scene(root, 273, 223);
+			Scene scene = new Scene(root, 300, 225);
 			scene.getStylesheets().add(""+Main.class.getResource("application.css"));
+			loginStage.setResizable(false);
 			loginStage.setTitle(pageTitle + " - Criando primeiro usuario");
 			loginStage.setScene(scene);
 			loginStage.show();

@@ -1,10 +1,10 @@
 package br.com.redline.caixasimples.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Menu;
 import br.com.redline.caixasimples.Main;
+import br.com.redline.caixasimples.util.CustomAlert;
 
 public class RootLayoutController {
 	
@@ -48,19 +48,11 @@ public class RootLayoutController {
 	
 	@FXML
 	public void obterAjuda() {
-		Alert a = new Alert(AlertType.INFORMATION);
-        a.setTitle("Ajuda");
-        a.setHeaderText(null);
-        a.setContentText("Nós contate com seu problema pelo e-mail: suporte@redline.com.br");
-        a.showAndWait();
+		CustomAlert.showAlert("Ajuda", "Nós contate com seu problema pelo e-mail: suporte@redline.com.br", AlertType.INFORMATION);
 	}
 	
 	@FXML
 	public void sobre() {
-		Alert a = new Alert(AlertType.INFORMATION);
-        a.setTitle("Sobre");
-        a.setHeaderText(null);
-        a.setContentText("Desenvolvido por RedLine\nVersão: 1.0");
-        a.showAndWait();
+		CustomAlert.showAlert("Ajuda", "Desenvolvido por RedLine\nVersão: 1.0", AlertType.INFORMATION);
 	} 
 }
