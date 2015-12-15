@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import br.com.redline.caixasimples.model.Produto;
 import br.com.redline.caixasimples.util.CustomAlert;
+import br.com.redline.caixasimples.util.MaskField;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,10 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.StringConverter;
 
 public class CaixaController implements Initializable {
 	
@@ -47,48 +45,12 @@ public class CaixaController implements Initializable {
 		loadContent();
 		setTableCaixa();
 		setTableVenda();
-		
-		StringConverter<Integer> intFormatter = new StringConverter<Integer>() {
-			@Override
-			public Integer fromString(String string) {
-				if(Integer.parseInt(string) > 0)
-					return Integer.parseInt(string);
-				
-				return 0;
-			}
 
-			@Override
-			public String toString(Integer object) {
-				if(object == null)
-					return "0";
-				
-				return object.toString();
-			}
-	    };
-	    
-	    StringConverter<BigDecimal> bigDecimalFormatter = new StringConverter<BigDecimal>() {
-			@Override
-			public BigDecimal fromString(String string) {
-				BigDecimal a = new BigDecimal(string);
-				if(a.signum() == -1) 
-					return new BigDecimal(0);
-					
-				return a;
-			}
-
-			@Override
-			public String toString(BigDecimal object) {
-				if(object == null)
-					return "0";
-				
-				return object.toPlainString();
-			}
-		};
-	    
-		tfQuantidade.setTextFormatter(new TextFormatter<Integer>(intFormatter));
-		tfDescontoProduto.setTextFormatter(new TextFormatter<BigDecimal>(bigDecimalFormatter));
-		tfDescontoVenda.setTextFormatter(new TextFormatter<BigDecimal>(bigDecimalFormatter));
-		tfValorPagamento.setTextFormatter(new TextFormatter<BigDecimal>(bigDecimalFormatter));
+		// Adiciona as mascaras no campo
+	    MaskField.intMask(tfQuantidade);
+		MaskField.moneyMask(tfDescontoProduto);
+		MaskField.moneyMask(tfDescontoVenda);
+		MaskField.moneyMask(tfValorPagamento);
 	}
 	
 	@FXML
@@ -99,7 +61,7 @@ public class CaixaController implements Initializable {
 	
 	@FXML
 	public void adicionarVenda() {
-		if(tbCaixa.getSelectionModel().getSelectedItem() != null && Integer.parseInt(tfQuantidade.getText()) >= 0) {
+		if(tbCaixa.getSelectionModel().getSelectedItem() != null && !tfQuantidade.getText().equals("") && Integer.parseInt(tfQuantidade.getText()) > 0) {
 			// Obtem o produto selecionado
 			Produto p = tbCaixa.getSelectionModel().getSelectedItem();
 			
@@ -111,7 +73,7 @@ public class CaixaController implements Initializable {
 				tbVenda.layout();
 				
 				BigDecimal desconto = new BigDecimal(0);
-				if(!tfDescontoProduto.getText().equals("0")) {
+				if(!tfDescontoProduto.getText().equals("")) {
 					desconto = new BigDecimal(tfDescontoProduto.getText());
 				}
 				
@@ -153,8 +115,8 @@ public class CaixaController implements Initializable {
 				
 				// Retorna para os valores padrões de codgio, quantidade e desconto produto
 				tfCodigo.setText("");
-				tfQuantidade.setText("0");
-				tfDescontoProduto.setText("0");
+				tfQuantidade.setText("");
+				tfDescontoProduto.setText("");
 			}
 		}
 	}
@@ -173,9 +135,9 @@ public class CaixaController implements Initializable {
 			
 			// Se a venda estiver vazia reseta os valores de desconto e troco
 			if(venda.size() == 0) {
-				tfDescontoVenda.setText("0");
-				tfValorPagamento.setText("0");
-				tfTroco.setText("0");
+				tfDescontoVenda.setText("");
+				tfValorPagamento.setText("");
+				tfTroco.setText("");
 			}
 			
 			// Atualiza interface
@@ -187,30 +149,33 @@ public class CaixaController implements Initializable {
 	
 	@FXML
 	public void updateTroco() {
-		if(!tfValorPagamento.getText().equals("") && !tfValorPagamento.getText().equals("-") && !tfValorPagamento.getText().matches("[\\D]+")) {
-			BigDecimal pagamento = new BigDecimal(tfValorPagamento.getText());
-			
-			if(pagamento.signum() != -1) {
-				BigDecimal troco = pagamento.subtract(totalVenda);
-				tfTroco.setText(""+troco);
-			}
+		BigDecimal pagamento = new BigDecimal(0);
+		if(!tfValorPagamento.getText().equals("") && !tfValorPagamento.getText().equals("-")) {
+			pagamento = new BigDecimal(tfValorPagamento.getText());
+		}
+		
+		if(pagamento.signum() != -1) {
+			BigDecimal troco = pagamento.subtract(totalVenda);
+			tfTroco.setText(""+troco);
 		}
 	}
 	
 	@FXML
 	public void updateDesconto() {
+		BigDecimal desconto = new BigDecimal(0);
+		
 		if(!tfDescontoVenda.getText().equals("") && !tfDescontoVenda.getText().equals("-") && !tfDescontoVenda.getText().matches("[\\D]+")) {
-			BigDecimal desconto = new BigDecimal(tfDescontoVenda.getText());
+			desconto = new BigDecimal(tfDescontoVenda.getText());
+		}
+		
+		if(desconto.signum() != -1) {
+			BigDecimal total = getTotal();
+			BigDecimal novoTotal = total.subtract(desconto);
 			
-			if(desconto.signum() != -1) {
-				BigDecimal total = getTotal();
-				BigDecimal novoTotal = total.subtract(desconto);
-				
-				if(novoTotal.signum() != -1) {
-					totalVenda = novoTotal;
-					lbValorTotal.setText("R$"+novoTotal);
-					updateTroco();
-				}
+			if(novoTotal.signum() != -1) {
+				totalVenda = novoTotal;
+				lbValorTotal.setText("R$"+novoTotal);
+				updateTroco();
 			}
 		}
 	}
@@ -224,9 +189,9 @@ public class CaixaController implements Initializable {
 					CustomAlert.showAlert("Caixa - Venda", "Troco R$" + tfTroco.getText(), AlertType.INFORMATION);
 			        
 			        // Limpa os campos
-			        tfDescontoVenda.setText("0");
-			        tfValorPagamento.setText("0");
-			        tfTroco.setText("0");
+			        tfDescontoVenda.setText("");
+			        tfValorPagamento.setText("");
+			        tfTroco.setText("");
 			        venda.clear();
 			        tbVenda.setItems(FXCollections.observableArrayList(venda));
 					tbVenda.refresh();

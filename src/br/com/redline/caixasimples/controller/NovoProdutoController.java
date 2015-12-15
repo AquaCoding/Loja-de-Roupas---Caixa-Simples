@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import br.com.redline.caixasimples.Main;
 import br.com.redline.caixasimples.model.EntradaProduto;
 import br.com.redline.caixasimples.model.Produto;
 import br.com.redline.caixasimples.util.CustomAlert;
+import br.com.redline.caixasimples.util.MaskField;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -22,8 +22,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TextFormatter;
-import javafx.util.StringConverter;
 
 public class NovoProdutoController implements Initializable {
 	@FXML
@@ -48,46 +46,9 @@ public class NovoProdutoController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		StringConverter<Integer> intFormatter = new StringConverter<Integer>() {
-			@Override
-			public Integer fromString(String string) {
-				if(Integer.parseInt(string) > 0)
-					return Integer.parseInt(string);
-				
-				return 0;
-			}
-
-			@Override
-			public String toString(Integer object) {
-				if(object == null)
-					return "0";
-				
-				return object.toString();
-			}
-	    };
-	    
-	    StringConverter<BigDecimal> bigDecimalFormatter = new StringConverter<BigDecimal>() {
-			@Override
-			public BigDecimal fromString(String string) {
-				BigDecimal a = new BigDecimal(string);
-				if(a.signum() == -1) 
-					return new BigDecimal(0);
-					
-				return a;
-			}
-
-			@Override
-			public String toString(BigDecimal object) {
-				if(object == null)
-					return "0";
-				
-				return object.toPlainString();
-			}
-		};
-	    
-		tfQuantidade.setTextFormatter(new TextFormatter<Integer>(intFormatter));
-		tfCusto.setTextFormatter(new TextFormatter<BigDecimal>(bigDecimalFormatter));
-		tfPreco.setTextFormatter(new TextFormatter<BigDecimal>(bigDecimalFormatter));
+		MaskField.intMask(tfQuantidade);
+		MaskField.moneyMask(tfCusto);
+		MaskField.moneyMask(tfPreco);
 		tvEntradaEstoque.setVisible(false);
 	}
 	

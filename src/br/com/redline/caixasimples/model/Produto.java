@@ -126,7 +126,30 @@ public class Produto {
 		try {
 			// Verifica codigo de barras
 			if(haveCodigoBarras(this.codigoBarras)) {
-				throw new RuntimeException("Código de barras ja informado");
+				Produto p = getByCodigoBarras(codigoBarras);
+				setIdProduto(p.getIdProduto());
+				p.setNomeProduto(this.nomeProduto);
+				p.setDescricao(this.descricao);
+				p.setQtd(this.qtd);
+				p.setPrecoVenda(this.precoVenda);
+				
+				// Obtem uma conexão com o banco de dados
+				Connection connect = DatabaseConnect.getInstance();
+
+				// Cria um prepared statement
+				PreparedStatement statement = (PreparedStatement) connect
+						.prepareStatement("UPDATE Produto SET ativo = true WHERE idProduto = ?");
+				
+				statement.setInt(1, this.idProduto);
+				
+				// Executa o SQL
+				int ret = statement.executeUpdate();
+
+				// Retorna resultado
+				if (ret == 1)
+					return p.update();
+				
+				throw new RuntimeException("Um erro ocorreu");
 			} else {
 				// Obtem uma conexão com o banco de dados
 				Connection connect = DatabaseConnect.getInstance();
@@ -173,7 +196,7 @@ public class Produto {
 			
 			// Cria um statement
 			PreparedStatement statement = (PreparedStatement) connect
-					.prepareStatement("SELECT * FROM Produto WHERE codigoBarras = ? AND ativo = true");
+					.prepareStatement("SELECT * FROM Produto WHERE codigoBarras = ?");
 			
 			statement.setString(1, codigoBarras);
 			
@@ -196,7 +219,7 @@ public class Produto {
 			
 			// Cria um statement
 			PreparedStatement statement = (PreparedStatement) connect
-					.prepareStatement("SELECT * FROM Produto WHERE codigoBarras = ? AND ativo = true");
+					.prepareStatement("SELECT * FROM Produto WHERE codigoBarras = ?");
 			
 			statement.setString(1, codigoBarras);
 			
@@ -341,12 +364,27 @@ public class Produto {
 			// Executa o SQL
 			int ret = statement.executeUpdate();
 
-			// Encerra conexao
-			connect.close();
+			
 
 			// Retorna resultado
 			if (ret == 1) {
-				return true;
+				// Deleta as entradas do produto
+				statement = (PreparedStatement) connect
+						.prepareStatement("DELETE FROM EntradaEstoque WHERE idProduto = ?");
+				
+				// Realiza o bind dos valores
+				statement.setInt(1, this.idProduto);
+
+				// Executa o SQL
+				ret = statement.executeUpdate();
+				
+				// Encerra conexao
+				connect.close();
+				
+				if (ret == 1)
+					return true;
+				
+				return false;
 			} else {
 				return false;
 			}

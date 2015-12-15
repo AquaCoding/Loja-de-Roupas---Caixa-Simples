@@ -85,7 +85,7 @@ public class Cliente {
 	}
 
 	public void setTelefone(String telefone) {
-		if (!telefone.matches("^[\\d]{10,15}$"))
+		if (!telefone.matches("^\\([\\d]{2}\\) [\\d]{4}-[\\d]{4,5}$"))
 			throw new RuntimeException("O valor de telefone é inválido");
 		this.telefone = telefone;
 	}

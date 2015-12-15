@@ -2,16 +2,14 @@ package br.com.redline.caixasimples.controller;
 
 import br.com.redline.caixasimples.Main;
 import br.com.redline.caixasimples.model.Usuario;
+import br.com.redline.caixasimples.util.CustomAlert;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
-public class LoginController {
-	@FXML
-	private Label lEntrar;
-	
+public class LoginController {	
 	@FXML
 	private TextField tfUsuario;
 	
@@ -30,7 +28,7 @@ public class LoginController {
 			Main.showViewCaixa();
 			Main.endLoginLayout();
 		} else {
-			lEntrar.setText("Nome de usuário ou senha incorretos");
+			CustomAlert.showAlert("Caixa - Entrar", "Nome de usuário ou senha incorretos", AlertType.INFORMATION);
 		}
 	}
 }

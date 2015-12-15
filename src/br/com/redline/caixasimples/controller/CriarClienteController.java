@@ -2,10 +2,10 @@ package br.com.redline.caixasimples.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import br.com.redline.caixasimples.Main;
 import br.com.redline.caixasimples.model.Cliente;
 import br.com.redline.caixasimples.util.CustomAlert;
+import br.com.redline.caixasimples.util.MaskField;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,8 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.util.StringConverter;
 
 public class CriarClienteController implements Initializable {
 	
@@ -32,26 +30,9 @@ public class CriarClienteController implements Initializable {
 	}
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		StringConverter<Integer> intFormatter = new StringConverter<Integer>() {
-			@Override
-			public Integer fromString(String string) {
-				if(Integer.parseInt(string) > 0)
-					return Integer.parseInt(string);
-				
-				return 0;
-			}
-
-			@Override
-			public String toString(Integer object) {
-				if(object == null)
-					return "0";
-				
-				return object.toString();
-			}
-	    };
-	    
-	    tfNumero.setTextFormatter(new TextFormatter<Integer>(intFormatter));
+	public void initialize(URL location, ResourceBundle resources) {	    
+	    MaskField.intMask(tfNumero);
+	    MaskField.phoneMask(tfTelefone);
 	}
 	
 	public void setCliente(Cliente cliente) {
@@ -95,10 +76,10 @@ public class CriarClienteController implements Initializable {
 	
 	@FXML
 	public void cadastrarClick() {
-		if(tfNumero.getText().equals(""))
-			tfNumero.setText("-1");
-		
 		try {
+			if(tfNumero.getText().equals(""))
+				throw new RuntimeException("O valor de número é inválido");
+			
 			Cliente c = new Cliente(tfNome.getText(), tfSobrenome.getText(), tfRua.getText(), Integer.parseInt(tfNumero.getText()), tfBairro.getText(), tfTelefone.getText(), tfEmail.getText());
 			c.create();
 			
