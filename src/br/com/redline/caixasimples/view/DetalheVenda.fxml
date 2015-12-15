@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="447.0" prefWidth="683.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <TableView fx:id="tProdutos" editable="true" layoutX="29.0" layoutY="122.0" prefHeight="276.0" prefWidth="655.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="190.0">
+        <columns>
+          <TableColumn fx:id="tcCodigo" prefWidth="75.0" text="Código de barras" />
+          <TableColumn fx:id="tcNome" prefWidth="75.0" text="Nome" />
+            <TableColumn fx:id="tcQuantidade" prefWidth="75.0" text="Quantidade" />
+            <TableColumn fx:id="tcPreco" prefWidth="75.0" text="Preço" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <VBox layoutX="14.0" layoutY="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Detalhe da venda">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="46.0" text="Código">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lCodigo" layoutX="14.0" layoutY="63.0" />
+            <Label layoutX="14.0" layoutY="80.0" text="Total">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lTotal" layoutX="14.0" layoutY="97.0" />
+            <Label text="Quantidade de produtos">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lQuantidade" />
+            <Label text="Data">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lData" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
