@@ -98,6 +98,7 @@ public class Main extends Application {
 			loginStage.setResizable(false);
 			loginStage.setTitle(pageTitle + " - Criando primeiro usuario");
 			loginStage.setScene(scene);
+			loginStage.getIcons().add(new Image(""+Main.class.getResource("icon.png")));
 			loginStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
