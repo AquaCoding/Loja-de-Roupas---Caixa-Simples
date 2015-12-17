@@ -63,8 +63,8 @@ public class Produto {
 	}
 
 	public void setDescricao(String descricao) {
-		if (!descricao.matches("^[a-zA-Zà-úÀ-Ú1-9 ]{3,200}$"))
-			throw new RuntimeException("O valor de descrição é inválido");
+		if (descricao.length() < 200)
+			throw new RuntimeException("O valor de descrição é muito grande");
 		this.descricao = descricao;
 	}
 
