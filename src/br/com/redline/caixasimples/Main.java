@@ -4,10 +4,12 @@ import java.io.IOException;
 
 import br.com.redline.caixasimples.controller.CriarClienteController;
 import br.com.redline.caixasimples.controller.CriarUsuarioController;
+import br.com.redline.caixasimples.controller.DetalheVendaController;
 import br.com.redline.caixasimples.controller.NovoProdutoController;
 import br.com.redline.caixasimples.model.Cliente;
 import br.com.redline.caixasimples.model.Produto;
 import br.com.redline.caixasimples.model.Usuario;
+import br.com.redline.caixasimples.model.Venda;
 import br.com.redline.caixasimples.util.CustomAlert;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -242,6 +244,38 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	// Carrega a view 'RegistroVendas' dentro do RootLayout
+	public static void showViewVendas() {
+		try {
+			primaryStage.setTitle(pageTitle + " - Vendas");
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/RegistroVendas.fxml"));
+			AnchorPane personOverview = (AnchorPane) loader.load();			
+			rootLayout.setCenter(personOverview);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// Carrega a view 'DetalheVenda' dentro do RootLayout
+		public static void showViewDetalheVenda(Venda venda) {
+			try {
+				primaryStage.setTitle(pageTitle + " - Detalhes da venda");
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(Main.class.getResource("view/DetalheVenda.fxml"));
+				AnchorPane personOverview = (AnchorPane) loader.load();
+				
+				if(venda != null) {
+					DetalheVendaController controller = loader.getController();
+					controller.setVenda(venda);
+				}
+				
+				rootLayout.setCenter(personOverview);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	public static void main(String[] args) {
 		launch(args);

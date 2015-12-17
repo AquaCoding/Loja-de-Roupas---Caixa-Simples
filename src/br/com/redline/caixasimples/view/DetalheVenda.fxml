@@ -7,15 +7,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="447.0" prefWidth="683.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane prefHeight="447.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.redline.caixasimples.controller.DetalheVendaController">
    <children>
-      <TableView fx:id="tProdutos" editable="true" layoutX="29.0" layoutY="122.0" prefHeight="276.0" prefWidth="655.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="190.0">
+      <TableView fx:id="tProdutos" editable="true" layoutX="14.0" layoutY="150.0" prefHeight="276.0" prefWidth="655.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="150.0">
         <columns>
           <TableColumn fx:id="tcCodigo" prefWidth="75.0" text="Código de barras" />
           <TableColumn fx:id="tcNome" prefWidth="75.0" text="Nome" />
             <TableColumn fx:id="tcQuantidade" prefWidth="75.0" text="Quantidade" />
             <TableColumn fx:id="tcPreco" prefWidth="75.0" text="Preço" />
+            <TableColumn fx:id="tcTotal" prefWidth="75.0" text="Total" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -40,12 +40,6 @@
                </font>
             </Label>
             <Label fx:id="lTotal" layoutX="14.0" layoutY="97.0" />
-            <Label text="Quantidade de produtos">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label fx:id="lQuantidade" />
             <Label text="Data">
                <font>
                   <Font name="System Bold" size="12.0" />

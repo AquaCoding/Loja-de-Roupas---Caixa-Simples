@@ -16,18 +16,18 @@
                   <Group AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
                      <children>
                         <Label fx:id="lbDescontoProduto" layoutX="278.0" layoutY="40.0" text="Desconto no produto (R$)" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="278.0" AnchorPane.rightAnchor="-4.521484375" AnchorPane.topAnchor="40.0" />
-                        <TextField fx:id="tfDescontoProduto" focusTraversable="false" layoutX="277.0" layoutY="58.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="277.0" AnchorPane.rightAnchor="-14.0" AnchorPane.topAnchor="58.0" />
                         <Label fx:id="lbCaixa" layoutX="14.0" layoutY="6.0" text="Caixa" AnchorPane.bottomAnchor="311.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="755.0" AnchorPane.topAnchor="6.0">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font></Label>
                         <Label fx:id="lbQuatidade" layoutX="204.0" layoutY="40.0" text="Quantidade" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="149.287109375" AnchorPane.topAnchor="40.0" />
                         <Label fx:id="lbCodigo" layoutX="14.0" layoutY="40.0" text="Código de barras" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="310.359375" AnchorPane.topAnchor="40.0" />
-                        <TextField fx:id="tfQuantidade" focusTraversable="false" layoutX="204.0" layoutY="58.0" prefHeight="25.0" prefWidth="63.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="148.5078125" AnchorPane.topAnchor="58.0" />
-                        <TextField fx:id="tfCodigo" focusTraversable="false" layoutX="14.0" layoutY="58.0" onKeyReleased="#buscar" prefWidth="180.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="246.0" AnchorPane.topAnchor="58.0" />
+                        <TextField fx:id="tfCodigo" layoutX="14.0" layoutY="58.0" onKeyReleased="#buscar" prefWidth="180.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="246.0" AnchorPane.topAnchor="58.0" />
+                        <TextField fx:id="tfQuantidade" layoutX="204.0" layoutY="58.0" prefHeight="25.0" prefWidth="63.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="148.5078125" AnchorPane.topAnchor="58.0" />
+                        <TextField fx:id="tfDescontoProduto" focusTraversable="false" layoutX="277.0" layoutY="58.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="277.0" AnchorPane.rightAnchor="-14.0" AnchorPane.topAnchor="58.0" />
                      </children>
                   </Group>
-                  <TableView fx:id="tbCaixa" editable="true" layoutX="6.0" layoutY="88.0" minHeight="100.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="100.0">
+                  <TableView fx:id="tbCaixa" editable="true" focusTraversable="false" layoutX="6.0" layoutY="88.0" minHeight="100.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="100.0">
                     <columns>
                       <TableColumn fx:id="tcCaixaCodigo" prefWidth="178.0" text="Código de barras" />
                       <TableColumn fx:id="tcCaixaNome" prefWidth="233.0" text="Nome" />
@@ -57,7 +57,7 @@
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font></Label>
-                  <TableView fx:id="tbVenda" editable="true" layoutX="6.0" layoutY="50.0" minHeight="100.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="50.0">
+                  <TableView fx:id="tbVenda" editable="true" focusTraversable="false" layoutX="6.0" layoutY="50.0" minHeight="100.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="50.0">
                     <columns>
                       <TableColumn fx:id="tcVendaCodigo" prefWidth="176.0" text="Código de barras" />
                       <TableColumn fx:id="tcVendaNome" prefWidth="154.0" text="Nome" />
@@ -74,12 +74,12 @@
                         <Label fx:id="lbDescontoVenda" layoutX="14.0" layoutY="240.0" text="Desconto na venda (R$)" AnchorPane.bottomAnchor="101.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="682.0" AnchorPane.topAnchor="240.0" />
                         <TextField fx:id="tfTroco" disable="true" editable="false" focusTraversable="false" layoutX="150.0" layoutY="314.0" prefHeight="10.0" prefWidth="59.0" AnchorPane.bottomAnchor="-240.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="-14.0" AnchorPane.topAnchor="314.0" />
                         <Label fx:id="lbValorPagamento" layoutX="14.0" layoutY="296.0" text="Valor pagamento (R$)" AnchorPane.bottomAnchor="-214.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="208.544921875" AnchorPane.topAnchor="296.0" />
-                        <TextField fx:id="tfValorPagamento" focusTraversable="false" layoutX="14.0" layoutY="314.0" onAction="#updateDesconto" onKeyReleased="#updateTroco" onMouseExited="#updateTroco" prefWidth="126.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="635.0" AnchorPane.topAnchor="314.0" />
+                        <TextField fx:id="tfValorPagamento" layoutX="14.0" layoutY="314.0" onAction="#updateDesconto" onKeyReleased="#updateTroco" prefWidth="126.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="635.0" AnchorPane.topAnchor="314.0" />
                         <Label fx:id="lbTroco" layoutX="151.0" layoutY="296.0" text="Troco (R$)" AnchorPane.bottomAnchor="-214.0" AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="-10.240234375" AnchorPane.topAnchor="296.0" />
                         <TextField fx:id="tfDescontoVenda" focusTraversable="false" layoutX="14.0" layoutY="257.0" onAction="#updateDesconto" onKeyReleased="#updateDesconto" prefHeight="25.0" prefWidth="126.0" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="635.0" AnchorPane.topAnchor="257.0" />
                      </children>
                   </Group>
-                  <Button fx:id="bRemover" layoutX="763.0" layoutY="17.0" mnemonicParsing="false" onMouseClicked="#removeItem" text="Remover" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="17.0" />
+                  <Button fx:id="bRemover" focusTraversable="false" layoutX="763.0" layoutY="17.0" mnemonicParsing="false" onMouseClicked="#removeItem" text="Remover" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="17.0" />
                </children>
             </AnchorPane>
         </items>

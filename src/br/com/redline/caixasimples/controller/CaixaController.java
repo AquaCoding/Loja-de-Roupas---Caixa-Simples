@@ -37,7 +37,7 @@ public class CaixaController implements Initializable {
 	
 	private ArrayList<Produto> produtos, venda = new ArrayList<Produto>();
 	
-	private BigDecimal totalVenda;
+	private BigDecimal totalVenda = new BigDecimal(0);
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -51,12 +51,15 @@ public class CaixaController implements Initializable {
 		MaskField.moneyMask(tfDescontoProduto);
 		MaskField.moneyMask(tfDescontoVenda);
 		MaskField.moneyMask(tfValorPagamento);
+		
+		selectFirstRow();
 	}
 	
 	@FXML
 	public void buscar() {
 		produtos = Produto.getAllWithFilters(tfCodigo.getText());
 		tbCaixa.setItems(FXCollections.observableArrayList(produtos));
+		selectFirstRow();
 	}
 	
 	@FXML
@@ -117,6 +120,7 @@ public class CaixaController implements Initializable {
 				tfCodigo.setText("");
 				tfQuantidade.setText("");
 				tfDescontoProduto.setText("");
+				selectFirstRow();
 			}
 		}
 	}
@@ -199,6 +203,7 @@ public class CaixaController implements Initializable {
 			        
 			        // Atualiza a lista de produtos do caixa
 			        loadContent();
+			        selectFirstRow();
 				}
 			} catch (Exception e) {
 				CustomAlert.showAlert("Caixa - Venda", e.getMessage(), AlertType.INFORMATION);
@@ -238,5 +243,9 @@ public class CaixaController implements Initializable {
 		
 		totalVenda = total;
 		return total;
+	}
+	
+	private void selectFirstRow() {
+		tbCaixa.getSelectionModel().select(0);
 	}
 }

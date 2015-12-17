@@ -47,12 +47,17 @@ public class RootLayoutController {
 	}
 	
 	@FXML
+	public void verVerdasClick() {
+		Main.showViewVendas();
+	}
+	
+	@FXML
 	public void obterAjuda() {
-		CustomAlert.showAlertWithCustomImage("Ajuda", "Nós contate com seu problema pelo e-mail: suporte@redline.com.br", AlertType.INFORMATION, "redline.png");
+		CustomAlert.showAlertWithCustomImage("Ajuda", "Nós contate com seu problema pelo e-mail: suporte@aquacoding.com.br", AlertType.INFORMATION, "aquacoding.png");
 	}
 	
 	@FXML
 	public void sobre() {
-		CustomAlert.showAlertWithCustomImage("Ajuda", "Desenvolvido por RedLine\nVersão: 1.0", AlertType.INFORMATION, "redline.png");
+		CustomAlert.showAlertWithCustomImage("Ajuda", "Desenvolvido por AquaCoding\nVersão: 1.0", AlertType.INFORMATION, "aquacoding.png");
 	} 
 }
