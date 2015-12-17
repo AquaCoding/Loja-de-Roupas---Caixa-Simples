@@ -53,7 +53,7 @@ public class RootLayoutController {
 	
 	@FXML
 	public void obterAjuda() {
-		CustomAlert.showAlertWithCustomImage("Ajuda", "Nós contate com seu problema pelo e-mail: suporte@aquacoding.com.br", AlertType.INFORMATION, "aquacoding.png");
+		CustomAlert.showAlertWithCustomImage("Ajuda", "Nós contate com seu problema pelo e-mail: suporte@aquacoding.com", AlertType.INFORMATION, "aquacoding.png");
 	}
 	
 	@FXML

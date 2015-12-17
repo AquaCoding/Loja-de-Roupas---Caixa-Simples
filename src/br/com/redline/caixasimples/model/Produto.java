@@ -63,7 +63,7 @@ public class Produto {
 	}
 
 	public void setDescricao(String descricao) {
-		if (descricao.length() < 200)
+		if (descricao.length() > 200)
 			throw new RuntimeException("O valor de descrição é muito grande");
 		this.descricao = descricao;
 	}
