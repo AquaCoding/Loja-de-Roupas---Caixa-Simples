@@ -36,10 +36,7 @@ public class Main extends Application {
 	public void start(Stage stage) {
 		// Inicia a janela principal
 		primaryStage = stage;
-		primaryStage.setFullScreen(false);
-		primaryStage.setFullScreenExitHint("");
-		primaryStage.setFullScreenExitKeyCombination(new KeyCodeCombination(
-				KeyCode.E, KeyCombination.CONTROL_DOWN));
+		primaryStage.setMaximized(true);
 		primaryStage.getIcons().add(new Image(""+Main.class.getResource("icon.png")));
 
 		// Defini titulo

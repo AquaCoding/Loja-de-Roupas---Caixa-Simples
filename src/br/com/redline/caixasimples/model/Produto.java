@@ -51,13 +51,13 @@ public class Produto {
 	}
 
 	public void setNomeProduto(String nomeProduto) {
-		if (!nomeProduto.matches("^[a-zA-Zà-úÀ-Ú ]{3,45}$"))
+		if (!nomeProduto.matches("^[a-zA-Zà-úÀ-Ú0-9 ]{3,45}$"))
 			throw new RuntimeException("O valor de nome é inválido");
 		this.nomeProduto = nomeProduto;
 	}
 
 	public void setCodigoBarras(String codigoBarras) {
-		if(codigoBarras.length() != 13)
+		if(codigoBarras.length() < 1 || codigoBarras.length() > 40)
 			throw new RuntimeException("Um código de barras (EAN-13) deve ter 13 caracteres");
 		this.codigoBarras = codigoBarras;
 	}
@@ -87,7 +87,7 @@ public class Produto {
 	}
 	
 	public void setFornecedor(String fornecedor) {
-		if (!fornecedor.matches("^[a-zA-Zà-úÀ-Ú ]{3,45}$"))
+		if (!fornecedor.matches("^[a-zA-Zà-úÀ-Ú0-9 ]{3,45}$"))
 			throw new RuntimeException("O valor de fornecedor é inválido");
 		this.fornecedor = fornecedor;
 	}
